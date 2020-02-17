@@ -1,0 +1,188 @@
+.background {
+  overflow: hidden;
+  background: url(https://www.simplybusiness.co.uk/sb-9f2b82b9/static/2786c3ebd924cfd352ec77b1dd21cf4b/0a89a/header.jpg),
+    rgba(0, 0, 0, 0.7);
+  position: absolute;
+  background-blend-mode: color;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: scale(1.3);
+  border: 5px solid black;
+  animation: increaseSize 26s ease-out;
+}
+
+.main {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  background-color: transparent;
+  height: 100vh;
+  flex-direction: column;
+  backface-visibility: hidden;
+}
+
+.logo img {
+  width: 10rem;
+  height: 10rem;
+}
+
+.main_body {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+
+.heading {
+  padding: 3rem;
+  position: absolute;
+  top: 30vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 7rem;
+  color: var(--text-color);
+  font-weight: 100;
+  /* border-left: 1rem solid white; */
+}
+
+.heading .title {
+  letter-spacing: 1rem;
+  animation: moveInLeft 1s ease-out;
+}
+
+.heading .sub_title {
+  font-size: 3rem;
+  letter-spacing: 1.5rem;
+  animation: moveInRight 1s ease-out;
+}
+
+.services-button {
+  overflow: hidden;
+  position: absolute;
+  z-index: 5;
+  width: 28rem;
+  height: 5.5rem;
+  line-height: 1.75rem;
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-color);
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(to right bottom, var(--color-primary), black);
+  border-radius: 100px;
+  font-size: 1.7rem;
+  box-shadow: 0 0 1rem 0.1rem black;
+  cursor: pointer;
+  animation: moveUp 1.8s ease;
+  animation-fill-mode: forwards;
+  transition: 0.2s ease-out;
+}
+
+.services-button:hover {
+  transform: translate(-50%, -1rem);
+  box-shadow: 0rem 0.2rem 1rem 0rem black;
+}
+
+.services-toggle_visible {
+  position: absolute;
+  top: 2rem;
+  left: 9%;
+  transition: 0.2s ease-out;
+}
+
+.services-toggle_invisible {
+  position: absolute;
+  top: 7rem;
+  left: 39%;
+  transition: 0.2s ease-out;
+}
+
+.services-check {
+  display: none;
+}
+
+.services-check:checked ~ label .services-toggle_visible {
+  top: -4rem;
+}
+
+.services-check:checked ~ label .services-toggle_invisible {
+  top: 2rem;
+}
+
+.services {
+  display: none;
+  overflow: auto;
+  position: absolute;
+  color: var(--text-color);
+  opacity: 96%;
+  width: 2rem;
+  height: 2rem;
+  bottom: 3rem;
+  left: 50%;
+  background: radial-gradient(black, var(--color-primary));
+  border: 5px solid var(--color-primary);
+  margin: auto;
+
+  /* animations */
+  transform: translateX(-50%);
+  transition: 0.5s all ease-out;
+}
+
+.services-check:checked ~ .services {
+  display: block;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  height: 84vh;
+}
+
+.services-check:checked ~ .services .service {
+  animation: moveUpService 1.2s ease-out;
+}
+
+.services-heading {
+  text-align: center;
+  font-size: 3rem;
+  letter-spacing: 0.2rem;
+}
+
+.services-sub_heading {
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.service {
+  display: inline-block;
+  border: 2px solid grey;
+  text-align: center;
+  width: 20%;
+  margin: 5rem 9rem;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.service:hover img {
+  transform: scale(1.2);
+}
+.service-name {
+  padding: 2rem;
+  text-transform: uppercase;
+  font-size: 2rem;
+}
+
+.service-img {
+  overflow: hidden;
+}
+
+.service img {
+  width: 100%;
+  transition: 0.2s all ease-out;
+}

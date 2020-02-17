@@ -1,0 +1,36 @@
+:root {
+  --color-primary: #4a3527;
+  --color-primary-dark: #251a13;
+  --color-primary-light: #ba957d;
+
+  --text-color: white;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; /* Font Size = 10px*/
+  scroll-behavior: smooth;
+}
+@media only screen and (max-width: 68.75em) {
+  html {
+    font-size: 50%;
+  }
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  backface-visibility: hidden;
+  height: 100%;
+}

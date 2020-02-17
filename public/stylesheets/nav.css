@@ -1,0 +1,41 @@
+.nav {
+  display: flex;
+  align-items: center;
+  padding: 5rem;
+  padding-top: 3rem;
+  font-size: 1.8rem;
+  justify-content: space-evenly;
+  position: sticky;
+  top: 0;
+}
+
+.nav_items {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  flex: 0 0 60%;
+  color: var(--text-color);
+}
+
+.nav_items li a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav_items li {
+  color: var(--text-color);
+  margin-left: 2rem;
+  margin-right: 2rem;
+  text-align: center;
+  transition: 0.2s all ease-in-out;
+  border-bottom: 0.7rem solid transparent;
+  cursor: pointer;
+}
+
+.nav_items li:hover {
+  border-bottom: 0.7rem solid var(--text-color);
+}
+
+.nav_items .current_item {
+  border-bottom: 0.7rem solid var(--text-color);
+}

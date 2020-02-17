@@ -1,0 +1,11 @@
+<form action="/login" method="POST">
+    <input type="text" placeholder="name">
+    <input type="text" placeholder="number">
+    <input type="submit" value="Click me"><br><br>
+    <% records.forEach(function(table) { %>
+    <%= table.last_name %> <br>
+    <%= table.first_name %> <br>
+    <%= table.email_id %> <br>
+    <%= table.phone_number %> <br><br>
+    <% }); %>
+</form>

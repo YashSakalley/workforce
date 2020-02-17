@@ -1,0 +1,29 @@
+.auth_form input {
+  display: block;
+  padding: 2rem;
+  margin: 2rem;
+  border: 1px solid var(--color-primary);
+  outline: none;
+  border-radius: 0.6rem;
+}
+
+.auth_form input[type="submit"] {
+  border: none;
+  cursor: pointer;
+  background-color: rgb(160, 140, 108);
+  color: white;
+  text-transform: uppercase;
+}
+
+.auth_form input[type="submit"]:hover {
+  background-color: rgb(180, 160, 120);
+}
+
+.auth_form {
+  padding: 7rem 3rem;
+  position: absolute;
+  top: 50%;
+  left: 10%; /* Temp */
+  transform: translateY(-50%);
+  border: 2rem solid var(--color-primary-light);
+}

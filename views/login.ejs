@@ -1,0 +1,11 @@
+<% include ./partials/header %>
+<title>
+    WorkForce | Login
+</title>
+<form class="auth_form" action="/auth/login" method="POST">
+    <input type="email" name="email_id" placeholder="Enter Email">
+    <input type="password" name="password" placeholder="Enter Password">
+    <input type="submit" value="Login">
+</form>
+
+<% include ./partials/footer %>
