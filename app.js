@@ -8,6 +8,7 @@ var bodyParser = require("body-parser"),
 
 // Routes
 var indexRouter = require('./routes/index'),
+    verifyRouter = require('./routes/verify'),
     authRouter = require('./routes/auth'),
     userRouter = require('./routes/user');
 
@@ -23,6 +24,7 @@ app.use(express.static(__dirname + '/public'));
 
 // Routes Setup
 app.use('/', indexRouter);
+app.use('/verify', verifyRouter);
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
 
@@ -36,48 +38,17 @@ app.use(session({
 // Passport Middleware
 app.use(passport.initialize());
 app.use(passport.session());
-passport.serializeUser(function (user, done) {
-    done(null, user[0].username);
-});
-passport.deserializeUser(function (email_id, done) {
-    con.query("select * from users where email_id = ?", [email_id], function (err, user) {
-        done(err, user);
-    });
-});
-passport.use('local',
-    new LocalStrategy({ passReqToCallback: true },
-        function (email_id, password, done) {
-            var sql = 'SELECT * FROM users WHERE email_id = ?';
-
-            con.query(sql, [email_id], function (err, user) {
-                if (err) {
-                    return done(err);
-                }
-                if (!user) {
-                    return done(null, false, { message: 'Incorrect username' });
-                }
-                if (user[0].password != password) {
-                    console.log("error!!");
-                    return done(null, false, { message: 'Incorrect password' });
-
-                }
-                user_id = user[0].id;
-                return done(null, user);
-            });
-        }
-    ));
 
 // Connect-Flash Middleware
 app.use(flash());
 
-app.get('*', function (req, res) {
-    console.log('404 not found');
-    res.send('404 not found');
-});
+// app.get('*', function (req, res) {
+//     console.log('404 not found');
+//     res.send('404 not found');
+// });
 
 //Defining Local Variables
 app.use(function (req, res, next) {
-    req.locals.currentUser = req.user || null;
     next();
 });
 

@@ -1,6 +1,7 @@
 var express = require('express'),
     router = express.Router(),
     passport = require('passport'),
+    LocalStrategy = require('passport-local'),
     mysql = require('mysql');
 
 var con = mysql.createConnection({
@@ -32,14 +33,47 @@ router.get('/test', function (req, res) {
     });
 });
 
+// Passport Stuff
+passport.serializeUser(function (user, done) {
+    done(null, user[0].email_id);
+});
+passport.deserializeUser(function (email_id, done) {
+    con.query("select * from users where email_id = ?", [email_id], function (err, user) {
+        done(err, user);
+    });
+});
+
+passport.use(new LocalStrategy(
+    function (email_id, password, done) {
+        var sql = 'SELECT * FROM users WHERE email_id = ?';
+
+        con.query(sql, [email_id], function (err, users, fields) {
+            user = users[0];
+            console.log(user);
+            if (err) {
+                return done(err);
+            }
+            if (!user) {
+                return done(null, false, { message: 'Incorrect username' });
+            }
+            if (user.password != password) {
+                console.log("error!!");
+                return done(null, false, { message: 'Incorrect password' });
+            }
+            user_id = user.id;
+            return done(null, user);
+        });
+    }
+));
+
+
 // Auth Routes
 // login
-router.post('/login', passport.authenticate('local', {
-    successRedirect: '/auth/',
-    failureRedirect: '/',
-}), function (req, res) {
-    console.log('Logged In user:', req.user);
-});
+router.post('/login',
+    passport.authenticate('local', { successRedirect: '/user/', failureRedirect: '/user/' }),
+    function (req, res) {
+        console.log('Logged In user.');
+    });
 
 router.get('/login', function (req, res) {
     res.render('login');
@@ -76,7 +110,7 @@ router.post('/register', function (req, res) {
         if (err) console.log(err);
         console.log('User ' + newUser.email_id + ' added successfully');
         // req.flash('success', 'Welcome to workforce ' + newUser.first_name + ' ' + newUser.last_name);
-        res.redirect('/');
+        res.redirect('/user');
     });
 });
 

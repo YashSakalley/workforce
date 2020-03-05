@@ -2,5 +2,7 @@
 @import "nav.css";
 @import "landing.css";
 @import "forms.css";
-
+@import "layouts.css";
+@import "popups.css";
+@import "buttons.css";
 @import "animations.css";

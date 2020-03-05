@@ -1,0 +1,42 @@
+.profile_main {
+  display: flex;
+  flex-direction: row;
+}
+
+.profile_main .sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  background-color: var(--color-primary-light);
+}
+
+.profile_main .sidebar ul {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile_main .sidebar li {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  background: moccasin;
+  padding: 2rem;
+  font-size: 2rem;
+  margin: 0.5rem 0;
+}
+
+.profile_main .main {
+  padding: 3rem;
+}
+
+.profile_main .main .user-info {
+  font-size: 5rem;
+}
+
+hr {
+  color: grey;
+  width: 50%;
+}

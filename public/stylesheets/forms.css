@@ -3,16 +3,19 @@
   padding: 2rem;
   margin: 2rem;
   border: 1px solid var(--color-primary);
+  border-radius: 0.3rem;
   outline: none;
-  border-radius: 0.6rem;
+  font-size: 1.5rem;
 }
 
 .auth_form input[type="submit"] {
   border: none;
+  border-radius: 0.6rem;
   cursor: pointer;
   background-color: rgb(160, 140, 108);
   color: white;
   text-transform: uppercase;
+  width: 85%;
 }
 
 .auth_form input[type="submit"]:hover {
@@ -26,4 +29,40 @@
   left: 10%; /* Temp */
   transform: translateY(-50%);
   border: 2rem solid var(--color-primary-light);
+}
+
+.form_otp {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  width: 50%;
+}
+
+.form_otp input[type="text"] {
+  text-align: center;
+  font-size: 3rem;
+  width: 5rem;
+  outline: none;
+}
+
+.form_otp span {
+  font-size: 2rem;
+}
+.form_otp input[name="phone"] {
+  display: none;
+}
+
+.otp_input {
+  padding: 3rem;
+  text-align: center;
+}
+
+.otp_content {
+  padding: 2rem;
+}
+
+.form_otp .header {
+  font-size: 2rem;
 }

@@ -1,10 +1,11 @@
+/* Landing Page Starts */
 .nav {
   display: flex;
   align-items: center;
   padding: 5rem;
   padding-top: 3rem;
   font-size: 1.8rem;
-  justify-content: space-evenly;
+  justify-content: space-between;
   position: sticky;
   top: 0;
 }
@@ -38,4 +39,37 @@
 
 .nav_items .current_item {
   border-bottom: 0.7rem solid var(--text-color);
+}
+
+.menu {
+  display: flex;
+  color: white;
+}
+
+.menu .user {
+  display: flex;
+  text-transform: uppercase;
+  text-align: center;
+  margin-right: 1rem;
+  flex-direction: column;
+}
+
+.menu .user .caption {
+  font-size: 1.5rem;
+}
+/* Landing Page Ends */
+
+.header {
+  display: flex;
+  background-color: var(--color-primary);
+  justify-content: space-between;
+  align-items: center;
+  padding: 3rem;
+}
+
+.header_profile img {
+  overflow: hidden;
+  width: 3.5rem;
+  border: 2px solid white;
+  border-radius: 50%;
 }

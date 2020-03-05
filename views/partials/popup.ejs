@@ -1,0 +1,82 @@
+<div class="popup" id="popupLogin">
+    <div class="popup_content">
+        <div class="popup_image">
+            <img src="https://alexwebdevelop.com/wp-content/uploads/2019/08/php-login-and-authentication-the-definitive-guide.png"
+                alt="">
+        </div>
+        <div class="popup_text">
+            <div class="popup_header">LOGIN</div>
+            <div class="popup_form">
+                <form action="/auth/login" method="POST">
+                    <input type="email" placeholder="Enter Email" name="email_id" required>
+                    <input type="password" placeholder="Enter Password" name="password" required>
+                    <input class="btn-default" type="submit" value="Login">
+                </form>
+            </div>
+            <div class="or">
+                <hr>
+                <span>OR</span>
+            </div>
+            <div class="popup_social">
+                <a href="/">
+                    <i class="fab fa-google-plus"></i>
+                </a>
+                <a href="/">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="/">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="popup_message">
+                Create a new account? <a href="#popupSignUp" class="message_link"> SignUP </a>
+            </div>
+            <div class="popup_close">
+                <a href="#">
+                    <i class="fas fa-times"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="popup" id="popupSignUp">
+    <div class="popup_content">
+        <div class="popup_image">
+            <img src="https://alexwebdevelop.com/wp-content/uploads/2019/08/php-login-and-authentication-the-definitive-guide.png"
+                alt="">
+        </div>
+        <div class="popup_text">
+            <div class="popup_header">SIGNUP</div>
+            <div class="popup_form">
+                <form action="/verify" method="POST">
+                    <input type="text" placeholder="Enter Phone Number" name="phone" required>
+                    <input class="btn-default" type="submit" value="Send OTP">
+                </form>
+            </div>
+            <div class="or">
+                <hr>
+                <span>OR</span>
+            </div>
+            <div class="popup_social">
+                <a href="/">
+                    <i class="fab fa-google-plus"></i>
+                </a>
+                <a href="/">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="/">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="popup_message">
+                Already have an account? <a class="message_link" href="#popupLogin"> LogIN </a>
+            </div>
+            <div class="popup_close">
+                <a href="#">
+                    <i class="fas fa-times"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

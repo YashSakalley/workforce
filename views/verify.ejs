@@ -1,0 +1,40 @@
+<style type="text/css">
+    body {
+        background: url(/images/Handyman2.jpg), rgba(0, 0, 0, 0.6);
+        background-blend-mode: color;
+    }
+</style>
+
+<!-- Custom Stylesheet -->
+<link rel="stylesheet" href="/stylesheets/style.css" type="text/css">">
+
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/dbaab9daf5.js" crossorigin="anonymous"></script>
+
+
+<body>
+    <form class="form_otp" action="/verify/OTP" method="POST">
+        <div class="header" style="justify-content: start;">
+            <a href="/"><i class="fas fa-arrow-left"></i></a>
+            &nbsp;
+            &nbsp;
+            ENTER ONE TIME PASSWORD
+        </div>
+        <div class="otp_content">
+            <span style="font-size: 2rem;"> One Time Password has been sent to <%= phone %> </span>
+            <input type="text" name="phone" value="<%= phone %>" readonly>
+            <div class="otp_input">
+                <input type="text" name="otp1" maxlength="1" required autofocus>
+                <span>-</span>
+                <input type="text" name="otp2" maxlength="1" required>
+                <span>-</span>
+                <input type="text" name="otp3" maxlength="1" required>
+                <span>-</span>
+                <input type="text" name="otp4" maxlength="1" required>
+            </div>
+            <input class="btn-default" type="submit" value="Verify OTP">
+        </div>
+    </form>
+</body>
+
+<% include ./partials/footer %>
