@@ -6,8 +6,11 @@ var express = require('express'),
 
 // Show OTP Page
 router.get('/:phone', function (req, res) {
+    // msg = req.flash('msg');
+    // var msg = 'Message comes here';
+    var msg = null;
     phone = req.params.phone;
-    res.render('verify', { phone: phone });
+    res.render('verify', { phone: phone, msg: msg });
 });
 
 // Send OTP
@@ -47,16 +50,16 @@ router.post('/OTP', function (req, res) {
         .then((value) => {
             if (value.valid == true) {
                 console.log('Otp verified');
+                res.redirect('/auth/register');
             }
             else {
                 console.log('Otp is Wrong');
+                res.redirect('back');
             }
         })
         .catch((err) => {
             console.log('err');
-        })
-    console.log(otp);
-    res.send('OTP Verification DONE');
+        });
 });
 
 module.exports = router;

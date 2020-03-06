@@ -88,10 +88,28 @@ router.post('/register', function (req, res) {
     repassword = req.body.repassword;
     password = req.body.password;
 
+    tempAddress = {
+        house_number: req.body.house_number,
+        add1: req.body.add1,
+        add2: req.body.add2,
+        pin: req.body.pin,
+        city: req.body.city,
+        state: req.body.state
+    }
+
+    address = tempAddress.house_number + '!';
+    address += tempAddress.add1 + '!';
+    if (tempAddress.add2) { address += tempAddress.add2 + '!' }
+    address += tempAddress.pin + '!';
+    address += tempAddress.city + '!';
+    address += tempAddress.state;
+
+    console.log(address);
+
     var newUser = {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
-        address: req.body.address,
+        address: address,
         email_id: req.body.email_id,
         phone_number: req.body.phone_number,
         profile_photo: req.body.profile_photo,

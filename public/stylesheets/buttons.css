@@ -13,5 +13,6 @@
   text-transform: uppercase;
   background-color: transparent;
   padding: 1rem 2.5rem;
+  cursor: pointer;
   margin: 1rem;
 }
