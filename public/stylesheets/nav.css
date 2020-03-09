@@ -1,4 +1,3 @@
-/* Landing Page Starts */
 .nav {
   display: flex;
   align-items: center;
@@ -72,4 +71,68 @@
   width: 3.5rem;
   border: 2px solid white;
   border-radius: 50%;
+}
+
+.main_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 1rem 2rem;
+  font-size: 3rem;
+  border-bottom: 0.2rem solid rgb(180, 180, 180);
+  box-shadow: 0 0.1rem 1rem 0.5rem rgb(180, 180, 180);
+  background-color: white;
+}
+
+.main_header .header_title {
+  letter-spacing: 0.4rem;
+}
+
+.main_header .header_profile {
+}
+
+.main_header .header_profile i {
+  margin: 1rem;
+}
+
+.service_nav {
+  font-size: 2rem;
+  flex-basis: 10rem;
+  box-shadow: 0.1rem 1rem 1rem 0.5rem rgb(180, 180, 180);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  transition: all 0.2s ease-out;
+}
+
+input[id="togglenav"]:checked + .service_nav {
+  flex-basis: 25%;
+}
+
+input[id="togglenav"]:checked
+  + .service_nav
+  .nav_options
+  .nav_option
+  .nav_option_text {
+  display: inline-block;
+}
+
+.nav_options {
+  list-style: none;
+}
+
+.nav_option {
+  background-color: rgb(226, 224, 224);
+  text-align: center;
+  padding: 1rem;
+  margin-top: 1rem;
+  display: flex;
+}
+
+.nav_option_text {
+  overflow-wrap: break-word;
+  margin-left: 1rem;
+  display: none;
 }

@@ -1,8 +1,8 @@
 var express = require('express'),
     router = express.Router(),
     passport = require('passport'),
-    LocalStrategy = require('passport-local'),
-    mysql = require('mysql');
+    mysql = require('mysql'),
+    bcrypt = require('bcryptjs');
 
 var con = mysql.createConnection({
     host: 'localhost',
@@ -23,54 +23,14 @@ router.get('/', function (req, res) {
     res.send('auth');
 });
 
-router.get('/test', function (req, res) {
-    console.log('GET request for /auth/test');
-    q = 'SELECT * FROM users';
-    con.query(q, function (err, records, fields) {
-        if (err) throw err;
-        console.log(records);
-        res.render('test', { records: records });
-    });
-});
-
-// Passport Stuff
-passport.serializeUser(function (user, done) {
-    done(null, user[0].email_id);
-});
-passport.deserializeUser(function (email_id, done) {
-    con.query("select * from users where email_id = ?", [email_id], function (err, user) {
-        done(err, user);
-    });
-});
-
-passport.use(new LocalStrategy(
-    function (email_id, password, done) {
-        var sql = 'SELECT * FROM users WHERE email_id = ?';
-
-        con.query(sql, [email_id], function (err, users, fields) {
-            user = users[0];
-            console.log(user);
-            if (err) {
-                return done(err);
-            }
-            if (!user) {
-                return done(null, false, { message: 'Incorrect username' });
-            }
-            if (user.password != password) {
-                console.log("error!!");
-                return done(null, false, { message: 'Incorrect password' });
-            }
-            user_id = user.id;
-            return done(null, user);
-        });
-    }
-));
-
-
 // Auth Routes
 // login
 router.post('/login',
-    passport.authenticate('local', { successRedirect: '/user/', failureRedirect: '/user/' }),
+    passport.authenticate('local',
+        {
+            successRedirect: '/service/start',
+            failureRedirect: '/',
+        }),
     function (req, res) {
         console.log('Logged In user.');
     });
@@ -115,6 +75,8 @@ router.post('/register', function (req, res) {
         profile_photo: req.body.profile_photo,
         password: req.body.password
     }
+    const hashedPassword = bcrypt.hash(req.body.password, 10);
+    console.log(hashedPassword);
 
     if (repassword != newUser.password) {
         console.log(password, repassword);
@@ -123,13 +85,20 @@ router.post('/register', function (req, res) {
         res.redirect('/auth/register');
         return
     }
-    query = 'INSERT INTO users SET ?';
-    con.query(query, newUser, function (err, records, fields) {
-        if (err) console.log(err);
-        console.log('User ' + newUser.email_id + ' added successfully');
-        // req.flash('success', 'Welcome to workforce ' + newUser.first_name + ' ' + newUser.last_name);
-        res.redirect('/user');
-    });
+    else {
+        bcrypt.genSalt(10, function (err, salt) {
+            bcrypt.hash(password, salt, function (err, hash) {
+                newUser.password = hash;
+                query = 'INSERT INTO users SET ?';
+                con.query(query, newUser, function (err, records, fields) {
+                    if (err) console.log(err);
+                    console.log('User ' + newUser.email_id + ' added successfully');
+                    // req.flash('success', 'Welcome to workforce ' + newUser.first_name + ' ' + newUser.last_name);
+                    res.redirect('/user');
+                });
+            });
+        });
+    }
 });
 
 //logout

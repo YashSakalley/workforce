@@ -1,0 +1,38 @@
+<% include ./partials/header %>
+
+<div class="address_page" style="display: flex;">
+    <% include ./partials/navigation %>
+    <main class="address_main">
+        <div class="address_main_content">
+            <h4 class="address_service" style="font-size: 3rem;">
+                <%= service %>
+            </h4>
+            <div style="font-size: 2rem;">
+                CHOOSE AN ADDRESS
+            </div>
+            <div class="addresses">
+                <form action="/service/selectWorker" method="POST">
+                    <input type="text" name="service" value="<%= service %>">
+                    <input type="radio" name="address" id="add1" value="add1">
+                    <label for="add1">
+                        <div class="address">
+                            <div class="address_line1">59, Bijli Nagar</div>
+                            <div class="address_line2">(Private) Govindpura</div>
+                            <div class="address_city">Bhopal, Madhya Pradesh</div>
+                        </div>
+                    </label>
+                    <input type="submit" id="submit">
+                </form>
+                <div class="add_address">
+                    <i class="fas fa-plus-circle"></i>
+                    Add Address
+                </div>
+            </div>
+        </div>
+        <div class="form_finish">
+            <a href="/service/start" class="btn-default-outline">BACK</a>
+            <label for="submit" class="btn-default">NEXT</label>
+        </div>
+    </main>
+</div>
+<% include ./partials/footer %>

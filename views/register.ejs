@@ -15,8 +15,7 @@
     <form action="/auth/register" class="form_register" method="POST">
         <div class="header" style="justify-content: start;">
             <a href="/"><i class="fas fa-arrow-left"></i></a>
-            &nbsp;
-            &nbsp;
+            &nbsp; &nbsp;
             PLEASE ENTER YOUR DETAILS
         </div>
         <div class="cover">
@@ -25,16 +24,42 @@
                     <div class="register_content">
                         <div class="reg_left">
                             <div class="left">
-                                <input type="text" placeholder="First Name" name="first_name">
-                                <input type="text" placeholder="Last Name" name="last_name">
-                                <input type="email" placeholder="Email ID" name="email_id">
-                                <input type="text" placeholder="Enter Phone Number" name="phone_number">
-                                <input type="password" placeholder="Enter a password" name="password">
-                                <input type="password" placeholder="Re-enter the password" name="repassword">
+                                <div class="form_field">
+                                    <input type="text" placeholder="First Name" name="first_name" id="first_name"
+                                        required>
+                                    <label for="first_name">First Name</label>
+                                </div>
+                                <div class="form_field">
+                                    <input type="text" placeholder="Last Name" name="last_name" id="last_name" required>
+                                    <label for="last_name">Last Name</label>
+                                </div>
+                                <div class="form_field">
+                                    <input type="email" placeholder="Email ID" name="email_id" id="email_id" required>
+                                    <label for="email_id">Email ID</label>
+                                </div>
+                                <div class="form_field">
+                                    <input type="text" placeholder="Enter Phone Number" name="phone_number" id="phone"
+                                        required>
+                                    <label for="phone">Enter Phone Number</label>
+                                </div>
+                                <div class="form_field">
+                                    <input type="password" placeholder="Enter a password" name="password" id="password"
+                                        required>
+                                    <label for="password">Enter a password</label>
+                                </div>
+                                <div class="form_field">
+                                    <input type="password" placeholder="Re-enter the password" name="repassword"
+                                        id="repassword" required>
+                                    <label for="repassword">Re-enter the password</label>
+                                </div>
                             </div>
                             <div class="right">
-                                <input type="file" name="profile_photo" id="profile_photo">
-                                <label for="profile_photo">Add Photo</label>
+                                <input type="file" name="profile_photo" id="profile_photo" style="display: none;">
+                                <label for="profile_photo" class="add_photo">
+                                    <i class="fas fa-plus"></i>
+                                </label>
+                                <br><br>
+                                Add a profile photo (Optional)
                             </div>
                         </div>
                         <a href="/" class="btn-default-outline">Go Home</a>
@@ -46,12 +71,31 @@
                 </div>
                 <div class="slide">
                     <div class="register_content">
-                        <input type="text" placeholder="House Number" name="house_number" required>
-                        <input type="text" placeholder="Address Line 1" name="add1" required>
-                        <input type="text" placeholder="Address Line 2 (Optional)" name="add2">
-                        <input type="text" placeholder="PINCODE" name="pin" required>
-                        <input type="text" placeholder="City" name="city" required>
-                        <input type="text" placeholder="State" name="state" required>
+                        <div class="form_field">
+                            <input type="text" placeholder="House Number" name="house_number" id="house_number"
+                                required>
+                            <label for="house_number">House Number</label>
+                        </div>
+                        <div class="form_field">
+                            <input type="text" placeholder="Address Line 1" name="add1" required>
+                            <label for="house_number">Address Line 1</label>
+                        </div>
+                        <div class="form_field">
+                            <input type="text" placeholder="Address Line 2 (Optional)" name="add2">
+                            <label for="house_number">Address Line 2 (Optional)</label>
+                        </div>
+                        <div class="form_field">
+                            <input type="text" placeholder="PINCODE" name="pin" required>
+                            <label for="house_number">PINCODE</label>
+                        </div>
+                        <div class="form_field">
+                            <input type="text" placeholder="City" name="city" required>
+                            <label for="house_number">City</label>
+                        </div>
+                        <div class="form_field">
+                            <input type="text" placeholder="State" name="state" required>
+                            <label for="house_number">State</label>
+                        </div>
                         <br><br><br><br><br><br><br>
                         <a onclick="moveLeft()" class="btn-default-outline" id="btn_back">
                             <i class="fas fa-arrow-left"></i>

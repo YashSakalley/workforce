@@ -71,6 +71,7 @@
 #btn_finish {
   right: 2rem;
 }
+
 .form_register .cover {
   width: 100%;
   overflow: hidden;
@@ -90,8 +91,79 @@
 .slide .register_content {
   width: 100%;
   height: 100%;
+  background-color: rgb(240, 240, 240);
 }
 
 .reg_left {
   display: flex;
+}
+
+.reg_left .right {
+  padding: 3rem;
+  width: 50%;
+  text-align: center;
+  color: rgb(180, 180, 180);
+  font-size: 3rem;
+}
+
+.reg_left .right label {
+  cursor: pointer;
+}
+
+.register_content input[type="text"],
+.register_content input[type="email"],
+.register_content input[type="password"] {
+  width: 25rem;
+  height: 5rem;
+  display: block;
+  margin: 3rem 5rem;
+  border-radius: 0.2rem;
+  border: none;
+  padding: 1.5rem 2rem;
+  font-size: 1.5rem;
+  border-bottom: 0.3rem solid transparent;
+}
+
+.register_content input[type="text"]:focus,
+.register_content input[type="email"]:focus,
+.register_content input[type="password"]:focus {
+  outline: none;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+  border-bottom: 0.3rem solid var(--color-primary);
+}
+
+.form_field {
+  position: relative;
+}
+
+.form_field input:focus:invalid {
+  border-bottom: 0.3rem solid #ff7730;
+}
+
+.form_field input::-webkit-input-placeholder {
+  color: #999;
+}
+
+.form_field input:placeholder-shown + label {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4rem);
+}
+
+.form_field label {
+  font-size: 1.5rem;
+  margin-left: 4rem;
+  margin-top: 0.7rem;
+  display: block;
+  position: absolute;
+  top: -2.9rem;
+  left: 2.5rem;
+  transition: all 0.3s;
+  color: var(--color-primary-dark);
+}
+
+.add_photo {
+  border: 0.2rem solid rgb(200, 200, 200);
+  border-radius: 1rem;
+  padding: 2rem;
 }
