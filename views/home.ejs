@@ -29,8 +29,10 @@
             </div>
             <div class="nav_menu">
                 <span class="menu">
+                    <% if(!currentUser) { %>
+
                     <div class="user login">
-                        <a href="#popupSignUp">
+                        <a href="#popupLogin">
                             <i class="fas fa-user"></i>
                         </a>
                         <a href="#popupLogin">
@@ -45,6 +47,19 @@
                             <span class="caption">SignUp</span>
                         </a>
                     </div>
+                    <% } %>
+                    <% if (currentUser) { %>
+                    <div class="header_user-profile">
+                        Hi <%= currentUser.first_name %>
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user logout">
+                        <a href="/auth/logout">
+                            Logout
+                        </a>
+                    </div>
+                    <% } %>
+
                 </span>
             </div>
         </nav>

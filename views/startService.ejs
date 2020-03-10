@@ -4,8 +4,8 @@
     <% include ./partials/navigation %>
     <main class="service_main">
         <h1>Select a Service</h1>
-        <input type="text" placeholder="Search">
         <div class="services">
+            <input type="text" placeholder="Search">
             <form action="/service/selectAddress/" method="POST">
                 <input type="radio" name="service" id="o1" class="service_radio" value="HAIR SALON">
                 <div class="service">
@@ -80,9 +80,10 @@
                 </div>
                 <input type="submit" id="submit" style="display: none;">
             </form>
-            <div class="form_finish">
-                <label class="btn-default" for="submit">NEXT</label>
-            </div>
+        </div>
+        <div class="form_finish">
+            <a href="/" class="btn-default-outline">BACK</a>
+            <label for="submit" class="btn-default">NEXT</label>
         </div>
     </main>
 </div>

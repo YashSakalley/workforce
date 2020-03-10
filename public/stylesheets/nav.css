@@ -73,6 +73,14 @@
   border-radius: 50%;
 }
 
+.header_profile input {
+  display: none;
+}
+
+.header_profile input:checked + label {
+  background-color: rgb(228, 228, 228);
+}
+
 .main_header {
   display: flex;
   justify-content: space-between;
@@ -82,6 +90,9 @@
   border-bottom: 0.2rem solid rgb(180, 180, 180);
   box-shadow: 0 0.1rem 1rem 0.5rem rgb(180, 180, 180);
   background-color: white;
+  position: sticky;
+  top: 0;
+  z-index: 105;
 }
 
 .main_header .header_title {
@@ -89,6 +100,7 @@
 }
 
 .main_header .header_profile {
+  display: flex;
 }
 
 .main_header .header_profile i {
@@ -135,4 +147,13 @@ input[id="togglenav"]:checked
   overflow-wrap: break-word;
   margin-left: 1rem;
   display: none;
+}
+
+/* Page Footer */
+
+.footer {
+  width: 100%;
+  background-color: rgb(50, 50, 50);
+  padding: 2rem;
+  z-index: 105;
 }

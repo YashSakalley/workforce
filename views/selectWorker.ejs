@@ -3,8 +3,64 @@
 <div class="worker_page" style="display: flex;">
     <% include ./partials/navigation %>
     <main class="worker_main">
-        Service required: <%= service %> <br>
-        At address: <%= address %>
+        <h1>
+            Service required: <%= service %> <br>
+            <span> At address: <%= address %></span>
+        </h1>
+        <div class="workers">
+            <form action="/service/finish" method="POST">
+                <% workers.forEach(function(worker) { %>
+                <input type="radio" name="worker" id="<%= worker.id %>" value="<%= worker.id %>">
+                <label for="<%= worker.id %>">
+                    <div class="worker">
+                        <div class="worker-img">
+                            <img src="https://vignette.wikia.nocookie.net/marvelmovies/images/0/0e/Endgame_Character_Posters_01.jpg/revision/latest/scale-to-width-down/340?cb=20190326174327"
+                                alt="">
+                        </div>
+                        <div class="worker_content">
+                            <div class="info">
+                                <span class="key">Name</span>
+                                <span class="value"><%= worker.first_name %> <%= worker.last_name %></span>
+                            </div>
+                            <div class="info">
+                                <span class="key">Email</span>
+                                <span class="value"><%= worker.email_id %></span>
+                            </div>
+                            <div class="info">
+                                <span class="key"><i class="fas fa-phone"></i></span>
+                                <span class="value"
+                                    style="color: var(--color-primary-dark);"><%= worker.phone_number%></span>
+                            </div>
+                            <div class="info">
+                                <span class="key"><i class="fas fa-map-marker-alt"></i></span>
+                                <span class="value"
+                                    style="color: var(--color-primary-dark);"><%= worker.shop_address %></span>
+                            </div>
+                            <br>
+                            <div class=" info">
+                                <span class="key">Estimated arrival time</span>
+                                <span class="value">45 minutes</span>
+                            </div>
+                        </div>
+                        <div class="rating">
+                            <div class="score">
+                                <%= worker.average_rating %>
+                            </div>
+                            <span>RATING</span>
+                            <div class="total">
+                                TOTAL REVIEWS <br> <%= worker.total_reviews %>
+                            </div>
+                        </div>
+                    </div>
+                </label>
+                <% }) %>
+                <input type="submit" id="submit">
+            </form>
+        </div>
+        <div class="form_finish">
+            <a href="/service/start" class="btn-default-outline">BACK</a>
+            <label for="submit" class="btn-default">NEXT</label>
+        </div>
     </main>
 </div>
 <% include ./partials/footer %>

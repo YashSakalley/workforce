@@ -3,30 +3,37 @@
 <div class="address_page" style="display: flex;">
     <% include ./partials/navigation %>
     <main class="address_main">
-        <div class="address_main_content">
-            <h4 class="address_service" style="font-size: 3rem;">
-                <%= service %>
-            </h4>
-            <div style="font-size: 2rem;">
-                CHOOSE AN ADDRESS
-            </div>
-            <div class="addresses">
-                <form action="/service/selectWorker" method="POST">
-                    <input type="text" name="service" value="<%= service %>">
-                    <input type="radio" name="address" id="add1" value="add1">
-                    <label for="add1">
-                        <div class="address">
-                            <div class="address_line1">59, Bijli Nagar</div>
-                            <div class="address_line2">(Private) Govindpura</div>
-                            <div class="address_city">Bhopal, Madhya Pradesh</div>
+        <h1>
+            <%= service %>
+            <br>
+            <span> CHOOSE AN ADDRESS </span>
+        </h1>
+        <div class="addresses">
+            <form action="/service/selectWorker" method="POST">
+                <input type="text" name="service" value="<%= service %>" style="display: none;">
+                <input type="radio" name="address" id="googleAdd" value="googleAdd">
+                <label for="googleAdd">
+                    <div class="address">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Choose current location
+                    </div>
+                </label>
+                <div class="or">OR</div>
+                <input type="radio" name="address" id="add1" value="<%= address.line1 %>">
+                <label for="add1">
+                    <div class="address">
+                        <div class="address_line1"><%= address.line1 %></div>
+                        <div class=" address_line2"><%= address.line2 %>
                         </div>
-                    </label>
-                    <input type="submit" id="submit">
-                </form>
-                <div class="add_address">
-                    <i class="fas fa-plus-circle"></i>
-                    Add Address
-                </div>
+                        <div class="address_city"><%= address.line3 %></div>
+                        <div class="address_line2"><%= address.line4 %></div>
+                    </div>
+                </label>
+                <input type="submit" id="submit">
+            </form>
+            <div class="add_address">
+                <i class="far fa-edit"></i>
+                Edit Address
             </div>
         </div>
         <div class="form_finish">

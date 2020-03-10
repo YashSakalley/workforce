@@ -1,3 +1,10 @@
 <% include ./partials/header %>
 
-Currently logged in user <%= currentUser.first_name %> <%= currentUser.last_name %>
+<div class="user_page" style="display: flex;">
+    <% include ./partials/navigation %>
+    <div class="user_main">
+        Currently logged in user <%= currentUser.first_name %> <%= currentUser.last_name %>
+    </div>
+</div>
+
+<% include ./partials/footer %>

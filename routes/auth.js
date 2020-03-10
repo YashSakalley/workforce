@@ -30,6 +30,7 @@ router.post('/login',
         {
             successRedirect: '/service/start',
             failureRedirect: '/',
+            failureFlash: true
         }),
     function (req, res) {
         console.log('Logged In user.');
@@ -41,7 +42,8 @@ router.get('/login', function (req, res) {
 
 // register 
 router.get('/register', function (req, res) {
-    res.render('register');
+    phone = req.flash('phone');
+    res.render('register', { phone: phone });
 });
 
 router.post('/register', function (req, res) {
@@ -80,7 +82,7 @@ router.post('/register', function (req, res) {
 
     if (repassword != newUser.password) {
         console.log(password, repassword);
-        // req.flash('error', 'Password and re-entered password must be same');
+        req.flash('error', 'Password and re-entered password must be same');
         console.log('password error');
         res.redirect('/auth/register');
         return
@@ -93,8 +95,11 @@ router.post('/register', function (req, res) {
                 con.query(query, newUser, function (err, records, fields) {
                     if (err) console.log(err);
                     console.log('User ' + newUser.email_id + ' added successfully');
-                    // req.flash('success', 'Welcome to workforce ' + newUser.first_name + ' ' + newUser.last_name);
-                    res.redirect('/user');
+                    req.flash('success', 'Welcome to workforce ' + newUser.first_name + ' ' + newUser.last_name);
+                    passport.authenticate('local')(req, res, function () {
+                        req.flash('success', 'Welcome to Workforce' + newUser.email_id);
+                        res.redirect('/service/start');
+                    });
                 });
             });
         });

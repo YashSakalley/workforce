@@ -31,7 +31,6 @@ router.post('/', function (req, res) {
             console.log(err);
             console.log('Error occured');
         });
-
     res.redirect('/verify/' + phone);
 });
 
@@ -50,6 +49,7 @@ router.post('/OTP', function (req, res) {
         .then((value) => {
             if (value.valid == true) {
                 console.log('Otp verified');
+                req.flash('phone', phone);
                 res.redirect('/auth/register');
             }
             else {

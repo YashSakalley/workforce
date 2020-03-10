@@ -12,7 +12,7 @@
 <script src="https://kit.fontawesome.com/dbaab9daf5.js" crossorigin="anonymous"></script>
 
 <body>
-    <form action="/auth/register" class="form_register" method="POST">
+    <form action="/auth/register" class="form_register" method="POST" autocomplete="off">
         <div class="header" style="justify-content: start;">
             <a href="/"><i class="fas fa-arrow-left"></i></a>
             &nbsp; &nbsp;
@@ -26,7 +26,7 @@
                             <div class="left">
                                 <div class="form_field">
                                     <input type="text" placeholder="First Name" name="first_name" id="first_name"
-                                        required>
+                                        required autofocus>
                                     <label for="first_name">First Name</label>
                                 </div>
                                 <div class="form_field">
@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="form_field">
                                     <input type="text" placeholder="Enter Phone Number" name="phone_number" id="phone"
-                                        required>
+                                        value="<%= phone %>" required readonly>
                                     <label for="phone">Enter Phone Number</label>
                                 </div>
                                 <div class="form_field">

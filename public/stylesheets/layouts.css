@@ -41,12 +41,17 @@ hr {
   width: 50%;
 }
 
+/* ------------ Select Service Page ----------- */
+
+.services {
+  padding: 2rem;
+}
+
 .services form {
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
   justify-content: center;
-
   overflow: auto;
 }
 
@@ -57,26 +62,15 @@ hr {
   width: 30rem;
   margin: 3rem;
   background-color: rgba(0, 0, 0, 0.8);
+  border: 0.4rem solid white;
+}
+
+.service label {
+  cursor: pointer;
 }
 
 .services input[type="radio"] {
   display: none;
-}
-
-.form_finish {
-  width: 100%;
-  height: 8rem;
-  border-top: 0.2rem solid grey;
-  margin-top: 2rem;
-  position: fixed;
-  bottom: 0;
-  background-color: white;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.form_finish label {
-  font-size: 1.5rem;
 }
 
 .services input:checked + .service {
@@ -86,6 +80,15 @@ hr {
 .service img {
   width: 100%;
   height: 20rem;
+  transition: all 0.2s cubic-bezier(0.42, -0.3, 0.54, 1.13);
+}
+
+.service:hover {
+  box-shadow: 0.1rem 0.1rem 1rem 1rem rgb(180, 180, 180);
+}
+
+.service:hover img {
+  transform: scale(1.1);
 }
 
 .service .service_caption {
@@ -102,9 +105,44 @@ hr {
 .service_caption_text {
 }
 
-.address_main_content {
+.service_main h1 {
+  padding: 2rem;
+  text-transform: uppercase;
+  font-size: 2.3rem;
+  border-bottom: 0.1rem solid rgb(180, 180, 180);
+  margin-bottom: 1rem;
+}
+
+.service_main input {
+  width: 20rem;
+  border: none;
+  border-bottom: 0.1rem solid rgb(100, 100, 100);
+  text-align: right;
+  font-size: 2rem;
+}
+
+.service_main input:focus {
+  outline: none;
+}
+/* ------------ Select Address Page -----------*/
+
+.addresses {
   padding: 2rem;
 }
+
+.address_main h1 {
+  padding: 2rem;
+  text-transform: uppercase;
+  font-size: 2.3rem;
+  border-bottom: 0.1rem solid rgb(180, 180, 180);
+  margin-bottom: 1rem;
+}
+
+.address_main h1 span {
+  font-size: 0.9em;
+  font-weight: lighter;
+}
+
 .address_service {
   font-size: 2rem;
 }
@@ -114,14 +152,152 @@ hr {
   display: none;
 }
 
+.addresses input[type="radio"]:checked + label .address {
+  background-color: rgb(220, 220, 220);
+}
+
 .address {
   font-size: 2rem;
   border: 0.1rem solid rgb(235, 233, 233);
   border-radius: 0.4rem;
   padding: 2rem;
   box-shadow: 0.1rem 0.1rem 0.7rem 0.1rem rgb(180, 180, 180);
+  width: 50rem;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.address_main_content .add_address {
+.address_main {
+  width: 100%;
+}
+
+.address_main .add_address {
   font-size: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  margin-top: 2rem;
+}
+
+.addresses .or {
+  width: auto;
+}
+
+/* ------------ Select Worker Page -----------*/
+
+.workers {
+  padding: 2rem;
+}
+
+.worker_main h1 {
+  padding: 2rem;
+  font-size: 2.3rem;
+  border-bottom: 0.1rem solid rgb(180, 180, 180);
+  margin-bottom: 1rem;
+}
+
+.worker_main h1 span {
+  font-size: 0.9em;
+  font-weight: lighter;
+}
+
+.workers input[type="radio"],
+.workers input[type="submit"] {
+  display: none;
+}
+
+.workers input[type="radio"]:checked + label .worker {
+  background-color: rgb(220, 220, 220);
+}
+
+.worker {
+  font-size: 2rem;
+  border: 0.1rem solid rgb(235, 233, 233);
+  border-radius: 0.4rem;
+  width: 75rem;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  transition: all 0.2s;
+  overflow: hidden;
+}
+
+.worker:hover {
+  box-shadow: 0.1rem 0.1rem 0.7rem 0.1rem;
+}
+
+.worker img {
+  width: 12rem;
+  height: 100%;
+}
+
+.worker .worker_content {
+  width: 100%;
+  padding-left: 1rem;
+}
+
+.worker .worker_content .info {
+}
+.worker .worker_content .info .key {
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.worker .worker_content .info .key::after {
+  content: " - ";
+}
+
+.worker .worker_content .info .value {
+}
+
+.worker .rating {
+  width: 13rem;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-primary-dark);
+  text-align: center;
+}
+
+.worker .rating .score {
+  font-size: 3rem;
+  background-color: var(--color-primary);
+  color: white;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.worker .rating span {
+  background-color: var(--color-primary);
+}
+
+.worker .rating .total {
+  font-size: 1.5rem;
+  background-color: var(--color-primary-dark);
+  color: white;
+}
+
+.worker_main {
+  width: 100%;
+}
+
+/* Bottom Element of Select Pages */
+
+.form_finish {
+  width: 100%;
+  height: 6.9rem;
+  border-top: 0.1rem solid rgb(180, 180, 180);
+
+  position: sticky;
+  bottom: 0;
+  background-color: white;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.form_finish label {
+  font-size: 1.5rem;
 }
