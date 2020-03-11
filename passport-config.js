@@ -13,7 +13,7 @@ function initialize(passport, app) {
     const authenticateUser = (email, password, done) => {
         q = 'SELECT * FROM users WHERE email_id = ?';
         con.connect(function (err) {
-            if (err) throw err;
+            if (err) console.log(err);
             con.query(q, [email], async function (err, users) {
                 if (err) console.log(err);
                 user = users[0];
