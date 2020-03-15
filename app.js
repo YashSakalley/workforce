@@ -14,6 +14,8 @@ var indexRouter = require('./routes/index'),
     userRouter = require('./routes/user'),
     serviceRouter = require('./routes/service');
 
+var workerRouter = require('./routes/worker');
+
 const app = express(),
     PORT = 5000;
 
@@ -51,6 +53,7 @@ app.use('/verify', verifyRouter);
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
 app.use('/service', serviceRouter);
+app.use('/worker', workerRouter);
 
 
 // app.get('*', function (req, res) {

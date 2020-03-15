@@ -35,3 +35,4 @@ option3.addEventListener('change', function () {
         option2.checked = false;
     }
 });
+

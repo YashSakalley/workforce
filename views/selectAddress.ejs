@@ -9,7 +9,7 @@
             <span> CHOOSE AN ADDRESS </span>
         </h1>
         <div class="addresses">
-            <form action="/service/selectWorker" method="POST">
+            <form action="/service/finish" method="POST">
                 <input type="text" name="service" value="<%= service %>" style="display: none;">
                 <input type="radio" name="address" id="googleAdd" value="googleAdd">
                 <label for="googleAdd">
@@ -19,7 +19,10 @@
                     </div>
                 </label>
                 <div class="or">OR</div>
-                <input type="radio" name="address" id="add1" value="<%= address.line1 %>">
+                <input type="radio" name="address" id="add1" value="<%= address.line1 %> 
+                    <%= address.line2 %> 
+                    <%= address.line3 %> 
+                    <%= address.line4 %>">
                 <label for="add1">
                     <div class="address">
                         <div class="address_line1"><%= address.line1 %></div>

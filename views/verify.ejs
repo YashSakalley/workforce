@@ -31,17 +31,29 @@
             <% } %>
             <input type="text" name="phone" value="<%= phone %>" readonly>
             <div class="otp_input">
-                <input type="text" name="otp1" maxlength="1" required autofocus>
+                <input type="text" name="otp1" maxlength="1" required autofocus id="otp1">
                 <span>-</span>
-                <input type="text" name="otp2" maxlength="1" required>
+                <input type="text" name="otp2" maxlength="1" required id="otp2">
                 <span>-</span>
-                <input type="text" name="otp3" maxlength="1" required>
+                <input type="text" name="otp3" maxlength="1" required id="otp3">
                 <span>-</span>
-                <input type="text" name="otp4" maxlength="1" required>
+                <input type="text" name="otp4" maxlength="1" required id="otp4">
             </div>
             <input class="btn-default" type="submit" value="Verify OTP">
         </div>
     </form>
 </body>
 
+<script>
+    var otp1 = document.getElementById('otp1');
+    var otp2 = document.getElementById('otp2');
+    var otp3 = document.getElementById('otp3');
+    var otp4 = document.getElementById('otp4');
+
+    otp1.addEventListener('onkeyup', function () {
+        console.log('Change 1');
+        otp2.focus();
+    });
+
+</script>
 <% include ./partials/footer %>

@@ -53,10 +53,21 @@ router.get('/selectWorker/:service/:address', authenticate.isLoggedIn, function 
     });
 });
 
-router.post('/selectWorker', authenticate.isLoggedIn, function (req, res) {
+router.get('/finish/:service/:address', function (req, res) {
+    var service = req.params.service;
+    var address = req.params.address;
+    // con.connect(function(err){
+    //     q = 'INSERT INTO ';
+    //     con.query(q, )
+    // });
+
+    res.render('serviceFinish', { service: service, address: address });
+});
+
+router.post('/finish', authenticate.isLoggedIn, function (req, res) {
     var selectedService = req.body.service;
     var selectedAddress = req.body.address;
-    res.redirect('/service/selectWorker/' + selectedService + '/' + selectedAddress);
+    res.redirect('/service/finish/' + selectedService + '/' + selectedAddress);
 });
 
 module.exports = router;

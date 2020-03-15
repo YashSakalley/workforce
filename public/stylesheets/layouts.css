@@ -301,3 +301,104 @@ hr {
 .form_finish label {
   font-size: 1.5rem;
 }
+
+/* Service Finish Page */
+
+.finish_main {
+  box-shadow: 0.1rem 0.1rem 0.5rem 0.5rem rgb(220, 220, 220);
+  width: 60rem;
+  margin: 8rem;
+  border-radius: 0.4rem;
+}
+
+.finish_main .finish_header {
+  padding: 1rem;
+}
+
+h1.submitted {
+  background-color: #ffc107;
+}
+
+h1.submitted .status {
+  color: rgb(111, 111, 111);
+}
+
+h1.approved {
+  background-color: #289524;
+}
+
+h1.approved .status {
+  color: rgb(220, 220, 220);
+}
+
+h1.rejected {
+  background-color: #dd5c45;
+}
+
+h1.rejected .status {
+  color: rgb(220, 220, 220);
+}
+
+.finish_header .finish_service {
+  margin-top: 6rem;
+  letter-spacing: 3px;
+  font-size: 3rem;
+  color: rgb(50, 50, 50);
+}
+
+.finish_header .status {
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+}
+
+.finish_content .status_msg {
+  padding: 1rem;
+  font-size: 1.5rem;
+  border: 0.1rem solid #e3e2e2;
+  margin: 1rem;
+  border-radius: 1.4rem;
+  display: flex;
+  align-items: center;
+}
+
+.finish_content .status_msg i {
+  margin-right: 1.1rem;
+  font-size: 1.7rem;
+}
+
+.finish_content .submitted i {
+  color: #daa915;
+}
+
+.finish_content .approved i {
+  color: #1be014;
+}
+
+.finish_content .rejected i {
+  color: #da3215;
+}
+
+.finish_address {
+  display: flex;
+  align-items: center;
+  font-size: 1.7rem;
+  padding: 1.8rem;
+}
+
+.finish_phone {
+  display: flex;
+  align-items: center;
+  padding: 1.7rem;
+  font-size: 1.8rem;
+}
+
+.finish_phone i,
+.finish_address i {
+  margin-right: 1rem;
+}
+
+.finish_msg {
+  color: rgb(111, 111, 111);
+  padding: 2rem;
+  font-size: 1.2rem;
+}
