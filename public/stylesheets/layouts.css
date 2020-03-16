@@ -184,106 +184,6 @@ hr {
   width: auto;
 }
 
-/* ------------ Select Worker Page -----------*/
-
-.workers {
-  padding: 2rem;
-}
-
-.worker_main h1 {
-  padding: 2rem;
-  font-size: 2.3rem;
-  border-bottom: 0.1rem solid rgb(180, 180, 180);
-  margin-bottom: 1rem;
-}
-
-.worker_main h1 span {
-  font-size: 0.9em;
-  font-weight: lighter;
-}
-
-.workers input[type="radio"],
-.workers input[type="submit"] {
-  display: none;
-}
-
-.workers input[type="radio"]:checked + label .worker {
-  background-color: rgb(220, 220, 220);
-}
-
-.worker {
-  font-size: 2rem;
-  border: 0.1rem solid rgb(235, 233, 233);
-  border-radius: 0.4rem;
-  width: 75rem;
-  cursor: pointer;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 1rem;
-  display: flex;
-  justify-content: space-between;
-  transition: all 0.2s;
-  overflow: hidden;
-}
-
-.worker:hover {
-  box-shadow: 0.1rem 0.1rem 0.7rem 0.1rem;
-}
-
-.worker img {
-  width: 12rem;
-  height: 100%;
-}
-
-.worker .worker_content {
-  width: 100%;
-  padding-left: 1rem;
-}
-
-.worker .worker_content .info {
-}
-.worker .worker_content .info .key {
-  text-transform: uppercase;
-  font-weight: 800;
-}
-
-.worker .worker_content .info .key::after {
-  content: " - ";
-}
-
-.worker .worker_content .info .value {
-}
-
-.worker .rating {
-  width: 13rem;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--color-primary-dark);
-  text-align: center;
-}
-
-.worker .rating .score {
-  font-size: 3rem;
-  background-color: var(--color-primary);
-  color: white;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
-.worker .rating span {
-  background-color: var(--color-primary);
-}
-
-.worker .rating .total {
-  font-size: 1.5rem;
-  background-color: var(--color-primary-dark);
-  color: white;
-}
-
-.worker_main {
-  width: 100%;
-}
-
 /* Bottom Element of Select Pages */
 
 .form_finish {
@@ -401,4 +301,47 @@ h1.rejected .status {
   color: rgb(111, 111, 111);
   padding: 2rem;
   font-size: 1.2rem;
+}
+
+/* Worker Page - Selecting JOB */
+
+.worker_main {
+  width: 100%;
+  padding: 2rem;
+}
+
+.worker_main input {
+  display: none;
+}
+
+.worker_main h1 {
+  text-transform: uppercase;
+}
+
+.worker_main h1 span {
+  font-size: 0.8em;
+  color: rgb(111, 111, 111);
+}
+
+.worker_main input[type="radio"]:checked + label {
+  background-color: rgb(220, 220, 220);
+}
+
+.worker_main .worker_job {
+  display: block;
+  margin: 2rem auto;
+  border: 0.1rem solid rgb(220, 220, 220);
+  border-radius: 0.4rem;
+  font-size: 2rem;
+  padding: 1rem;
+  max-width: 80rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.worker_main .worker_job:hover {
+  box-shadow: 0.1rem 0.2rem 1.1rem 0.5rem rgb(180, 180, 180);
+}
+
+.worker_main .worker_jobs {
 }

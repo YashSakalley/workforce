@@ -3,30 +3,43 @@
 <div class="finish_page" style="display: flex; position: relative;">
     <% include ./partials/navigation %>
     <main class="finish_main">
-
+        <% if(status == 'pending') { %>
         <h1 class="finish_header submitted">
-            <span class="status">PENDING</span>
+            <span class="status">CURRENT STATUS: PENDING</span>
             <div class="finish_service"><%= service %></div>
         </h1>
-        <h1 class="finish_header approved">
-            <span class="status">APPROVED</span>
-            <div class="finish_service"><%= service %></div>
-        </h1>
+        <% } %>
 
-        <h1 class="finish_header rejected">
-            <span class="status">REJECTED</span>
+        <% if(status == 'approved') { %>
+        <h1 class="finish_header approved">
+            <span class="status">CURRENT STATUS: APPROVED</span>
             <div class="finish_service"><%= service %></div>
         </h1>
+        <% } %>
+
+        <% if(status == 'rejected') { %>
+        <h1 class="finish_header rejected">
+            <span class="status">CURRENT STATUS: REJECTED</span>
+            <div class="finish_service"><%= service %></div>
+        </h1>
+        <% } %>
 
         <div class="finish_content">
+            <% if(status == 'pending') { %>
             <div class="status_msg submitted">
                 <i class="far fa-clock"></i>
                 Your request has been submitted. Please wait while we are assigning a worker to you.
             </div>
+            <% } %>
+
+            <% if(status == 'approved') { %>
             <div class="status_msg approved">
                 <i class="far fa-check-circle"></i>
                 Your request has been successfully approved. Our worker is on his way to your location.
             </div>
+            <% } %>
+
+            <% if(status == 'rejected') { %>
             <div class="status_msg rejected">
                 <i class="fas fa-exclamation-circle"></i>
                 <div>
@@ -36,6 +49,8 @@
                     </a>
                 </div>
             </div>
+            <% } %>
+
             <div class="finish_address">
                 <span class="key"><i class="fas fa-map-marker-alt"></i></span>
                 <%= address %>

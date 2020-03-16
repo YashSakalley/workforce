@@ -53,21 +53,56 @@ router.get('/selectWorker/:service/:address', authenticate.isLoggedIn, function 
     });
 });
 
-router.get('/finish/:service/:address', function (req, res) {
+router.get('/finish/:service/:address/:id', authenticate.isLoggedIn, function (req, res) {
     var service = req.params.service;
     var address = req.params.address;
-    // con.connect(function(err){
-    //     q = 'INSERT INTO ';
-    //     con.query(q, )
-    // });
+    var status = 'pending';
+    con.connect(function (err) {
+        var id = req.params.id;
+        var user_id = req.user.id;
+        q = 'SELECT * FROM temp_requests WHERE id = ' + id + ' AND user_id = ' + req.user.id;
+        console.log(q);
+        con.query(q, function (err, records, fields) {
+            var temp_request = records[0];
+            if (err) console.log(err);
+            if (records.length == 0) {
+                res.render('home');
+                console.log('access denied');
+                return
+            }
+            else {
+                console.log(records);
+                status = temp_request.current_status;
+            }
+            res.render('serviceFinish', { service: service, address: address, status: status });
+        });
+    });
 
-    res.render('serviceFinish', { service: service, address: address });
 });
 
 router.post('/finish', authenticate.isLoggedIn, function (req, res) {
     var selectedService = req.body.service;
     var selectedAddress = req.body.address;
-    res.redirect('/service/finish/' + selectedService + '/' + selectedAddress);
+
+    con.connect(function (err) {
+        if (err) throw err;
+        console.log('Request Recieved');
+        var newRequest = {
+            user_id: req.user.id,
+            current_status: 'pending',
+            job: selectedService
+        }
+        q = 'INSERT INTO temp_requests SET ?';
+        con.query(q, newRequest, function (err, records, fields) {
+            console.log('inserting');
+            if (err) console.log(err);
+            else {
+                var id = records.insertId;
+                console.log('it is', id);
+                res.redirect('/service/finish/' + selectedService + '/' + selectedAddress + '/' + id);
+            }
+        });
+    });
 });
 
 module.exports = router;
