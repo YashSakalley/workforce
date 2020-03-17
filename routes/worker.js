@@ -1,18 +1,9 @@
 var express = require('express'),
-    router = express.Router(),
-    mysql = require('mysql');
+    router = express.Router();
 
-var con = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'Mangotree@123',
-    database: 'workforce'
-});
-
-con.connect(function (err) {
-    if (err) throw err;
-});
 router.get('/', function (req, res) {
+    var con = req.app.get('con'); // MySQL Connection Object
+
     q = 'SELECT first_name, last_name, phone_number, address, temp_requests.id, job, user_id ' +
         'FROM temp_requests JOIN users ' +
         'ON users.id = temp_requests.user_id ' +
@@ -28,16 +19,18 @@ router.get('/', function (req, res) {
 });
 
 router.post('/selectJob', function (req, res) {
+    var con = req.app.get('con'); // MySQL Connection Object
+
     var request = JSON.parse(req.body.jobId);
     var worker_id = 1;
 
     var newRequest = {
         user_id: request.user_id,
         worker_id: worker_id,
-        current_status: 'approved',
+        current_status: 'ongoing',
         job: request.job
     }
-    q1 = 'INSERT INTO requests SET ?'
+    q1 = 'INSERT INTO requests SET ?';
     con.query(q1, newRequest, function (err, records, fields) {
         if (err) throw err;
         console.log('main', records);

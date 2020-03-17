@@ -3,9 +3,19 @@ var bodyParser = require("body-parser"),
     path = require('path'),
     passport = require('passport'),
     session = require('express-session'),
-    flash = require('connect-flash');
+    flash = require('connect-flash'),
+    mysql = require('mysql');
 
 const initializePassport = require('./passport-config');
+const initDb = require('./config/db_config');
+
+// Database Connection
+var con = initDb(mysql);
+
+con.connect(function (err) {
+    if (err) throw err;
+    console.log('Connected to the database on app.js');
+});
 
 // Routes
 var indexRouter = require('./routes/index'),
@@ -16,12 +26,15 @@ var indexRouter = require('./routes/index'),
 
 var workerRouter = require('./routes/worker');
 
+var testRouter = require('./routes/test');
+
 const app = express(),
     PORT = 5000;
 
 //App Setup
 app.set('views', path.join(__dirname + '/views'));
 app.set("view engine", "ejs");
+app.set('con', con); // Setting MySQL Connection Object as GLOBAL Variable
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
@@ -54,7 +67,7 @@ app.use('/auth', authRouter);
 app.use('/user', userRouter);
 app.use('/service', serviceRouter);
 app.use('/worker', workerRouter);
-
+app.use('/test', testRouter);
 
 // app.get('*', function (req, res) {
 //     console.log('404 not found');

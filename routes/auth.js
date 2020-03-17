@@ -1,20 +1,7 @@
 var express = require('express'),
     router = express.Router(),
     passport = require('passport'),
-    mysql = require('mysql'),
     bcrypt = require('bcryptjs');
-
-var con = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'Mangotree@123',
-    database: 'workforce'
-});
-
-con.connect(function (err) {
-    if (err) throw err;
-    console.log('Connected to the database');
-});
 
 // ------------ Routes Started ----------------//
 
@@ -47,6 +34,8 @@ router.get('/register', function (req, res) {
 });
 
 router.post('/register', function (req, res) {
+    var con = req.app.get('con'); // MySQL Connection Object
+
     repassword = req.body.repassword;
     password = req.body.password;
 
@@ -93,7 +82,7 @@ router.post('/register', function (req, res) {
                 newUser.password = hash;
                 query = 'INSERT INTO users SET ?';
                 con.query(query, newUser, function (err, records, fields) {
-                    if (err) console.log(err);
+                    if (err) throw err;
                     console.log('User ' + newUser.email_id + ' added successfully');
                     req.flash('success', 'Welcome to workforce ' + newUser.first_name + ' ' + newUser.last_name);
                     passport.authenticate('local')(req, res, function () {

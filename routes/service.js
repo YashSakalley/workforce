@@ -1,14 +1,6 @@
 var express = require('express'),
     router = express.Router(),
-    authenticate = require('./authenticate'),
-    mysql = require('mysql');
-
-var con = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'Mangotree@123',
-    database: 'workforce'
-})
+    authenticate = require('./authenticate');
 
 router.get('/start', authenticate.isLoggedIn, function (req, res) {
     res.render('startService');
@@ -37,19 +29,19 @@ router.post('/selectAddress', authenticate.isLoggedIn, function (req, res) {
 });
 
 router.get('/selectWorker/:service/:address', authenticate.isLoggedIn, function (req, res) {
+    var con = req.app.get('con'); // MySQL Connection Object
+
     var service = req.params.service;
     var address = req.params.address;
     console.log(service, address);
 
-    con.connect(function (err) {
-        q = 'SELECT * FROM workers';
-        con.query(q, function (err, workers, fields) {
-            if (err) console.log(err);
-            else {
-                console.log('Workers are:', workers);
-                res.render('selectWorker', { service: service, address: address, workers: workers });
-            }
-        });
+    q = 'SELECT * FROM workers';
+    con.query(q, function (err, workers, fields) {
+        if (err) console.log(err);
+        else {
+            console.log('Workers are:', workers);
+            res.render('selectWorker', { service: service, address: address, workers: workers });
+        }
     });
 });
 
@@ -57,25 +49,25 @@ router.get('/finish/:service/:address/:id', authenticate.isLoggedIn, function (r
     var service = req.params.service;
     var address = req.params.address;
     var status = 'pending';
-    con.connect(function (err) {
-        var id = req.params.id;
-        var user_id = req.user.id;
-        q = 'SELECT * FROM temp_requests WHERE id = ' + id + ' AND user_id = ' + req.user.id;
-        console.log(q);
-        con.query(q, function (err, records, fields) {
-            var temp_request = records[0];
-            if (err) console.log(err);
-            if (records.length == 0) {
-                res.render('home');
-                console.log('access denied');
-                return
-            }
-            else {
-                console.log(records);
-                status = temp_request.current_status;
-            }
-            res.render('serviceFinish', { service: service, address: address, status: status });
-        });
+    var con = req.app.get('con');
+
+    var id = req.params.id;
+    var user_id = req.user.id;
+    q = 'SELECT * FROM temp_requests WHERE id = ' + id + ' AND user_id = ' + req.user.id;
+    console.log(q);
+    con.query(q, function (err, records, fields) {
+        var temp_request = records[0];
+        if (err) console.log(err);
+        if (records.length == 0) {
+            res.render('home');
+            console.log('access denied');
+            return
+        }
+        else {
+            console.log(records);
+            status = temp_request.current_status;
+        }
+        res.render('serviceFinish', { service: service, address: address, status: status });
     });
 
 });
@@ -83,26 +75,25 @@ router.get('/finish/:service/:address/:id', authenticate.isLoggedIn, function (r
 router.post('/finish', authenticate.isLoggedIn, function (req, res) {
     var selectedService = req.body.service;
     var selectedAddress = req.body.address;
+    var con = req.app.get('con');
 
-    con.connect(function (err) {
-        if (err) throw err;
-        console.log('Request Recieved');
-        var newRequest = {
-            user_id: req.user.id,
-            current_status: 'pending',
-            job: selectedService
+    console.log('Request Recieved');
+    var newRequest = {
+        user_id: req.user.id,
+        current_status: 'pending',
+        job: selectedService
+    }
+    q = 'INSERT INTO temp_requests SET ?';
+    con.query(q, newRequest, function (err, records, fields) {
+        console.log('inserting');
+        if (err) console.log(err);
+        else {
+            var id = records.insertId;
+            console.log('it is', id);
+            res.redirect('/service/finish/' + selectedService + '/' + selectedAddress + '/' + id);
         }
-        q = 'INSERT INTO temp_requests SET ?';
-        con.query(q, newRequest, function (err, records, fields) {
-            console.log('inserting');
-            if (err) console.log(err);
-            else {
-                var id = records.insertId;
-                console.log('it is', id);
-                res.redirect('/service/finish/' + selectedService + '/' + selectedAddress + '/' + id);
-            }
-        });
     });
+
 });
 
 module.exports = router;
