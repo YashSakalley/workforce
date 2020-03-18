@@ -1,0 +1,36 @@
+<% include ./partials/header %>
+
+<div class="currentOrders_page" style="display: flex;">
+    <% include ./partials/navigation %>
+    <div class="currentOrders_main">
+        <div class="orders">
+            <% orders.forEach(function(order) { %>
+            <a href="/service/finish/<%= order.job %>/<%= order.address.split('!').join(', ') %>/<%= order.id %>">
+                <div class="order 
+                <% if (order.current_status == 'pending') { %>
+                    order_pending
+                <% } %>
+                <% if (order.current_status == 'approved') { %>
+                    order_approved
+                <% } %>
+                <% if (order.current_status == 'rejected') { %>
+                    order_rejected
+                <% } %>
+                ">
+                    <div class="order_current_status">
+                        <%= order.current_status %>
+                    </div>
+                    <div class="order_job">
+                        <%= order.job %>
+                    </div>
+                    <div class="order_created_at">
+                        <%= order.created_at %>
+                    </div>
+                </div>
+            </a>
+            <% }) %>
+        </div>
+    </div>
+</div>
+
+<% include ./partials/footer %>

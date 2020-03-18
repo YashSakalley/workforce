@@ -6,3 +6,5 @@ VALUES
     ('Boobie', 'Baba', 'Bobbie18@hotmail.com', 66145654, 'Shahpura', 5.0, 2, 'Plumbing', 'pass3'),
     ('Kory', 'Daniells', 'Kory73@hotmail.com', 9898974, 'Shivaji Nagar', 4.1, 1, 'Electrician', 'pass4'),
     ('Chadrick', 'Turcotte', 'Chadrick_Turcotte60@hotmail.com', 000218, 'Minal Residency', 3.2, 10, 'Hair Salon', 'pass5');
+
+-- SELECT requests.id, workers.id, current_status, workers.job, first_name, last_name, phone_number, email_id, shop_address, profile_photo, average_rating, total_reviews FROM requests JOIN workers ON workers.id = requests.worker_id;

@@ -6,7 +6,6 @@ var express = require('express'),
 // ------------ Routes Started ----------------//
 
 router.get('/', function (req, res) {
-    console.log('Inside auth router');
     res.send('auth');
 });
 
@@ -20,7 +19,7 @@ router.post('/login',
             failureFlash: true
         }),
     function (req, res) {
-        console.log('Logged In user.');
+
     });
 
 router.get('/login', function (req, res) {
@@ -55,8 +54,6 @@ router.post('/register', function (req, res) {
     address += tempAddress.city + '!';
     address += tempAddress.state;
 
-    console.log(address);
-
     var newUser = {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -67,12 +64,9 @@ router.post('/register', function (req, res) {
         password: req.body.password
     }
     const hashedPassword = bcrypt.hash(req.body.password, 10);
-    console.log(hashedPassword);
 
     if (repassword != newUser.password) {
-        console.log(password, repassword);
         req.flash('error', 'Password and re-entered password must be same');
-        console.log('password error');
         res.redirect('/auth/register');
         return
     }
@@ -83,7 +77,6 @@ router.post('/register', function (req, res) {
                 query = 'INSERT INTO users SET ?';
                 con.query(query, newUser, function (err, records, fields) {
                     if (err) throw err;
-                    console.log('User ' + newUser.email_id + ' added successfully');
                     req.flash('success', 'Welcome to workforce ' + newUser.first_name + ' ' + newUser.last_name);
                     passport.authenticate('local')(req, res, function () {
                         req.flash('success', 'Welcome to Workforce' + newUser.email_id);
@@ -98,7 +91,6 @@ router.post('/register', function (req, res) {
 //logout
 router.get('/logout', function (req, res) {
     req.logout();
-    console.log('User Logged Out');
     res.redirect('/');
 });
 

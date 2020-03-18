@@ -9,7 +9,7 @@ router.get('/start', authenticate.isLoggedIn, function (req, res) {
 router.get('/selectAddress/:service', authenticate.isLoggedIn, function (req, res) {
     address = req.user.address;
     address = address.split('!');
-    console.log(address);
+
     var addline1 = address[0] + ', ' + address[1];
     var addline2 = address[2];
     var addline3 = address[4] + ', ' + address[5];
@@ -30,16 +30,13 @@ router.post('/selectAddress', authenticate.isLoggedIn, function (req, res) {
 
 router.get('/selectWorker/:service/:address', authenticate.isLoggedIn, function (req, res) {
     var con = req.app.get('con'); // MySQL Connection Object
-
     var service = req.params.service;
     var address = req.params.address;
-    console.log(service, address);
 
     q = 'SELECT * FROM workers';
     con.query(q, function (err, workers, fields) {
-        if (err) console.log(err);
+        if (err) throw err;
         else {
-            console.log('Workers are:', workers);
             res.render('selectWorker', { service: service, address: address, workers: workers });
         }
     });
@@ -52,22 +49,50 @@ router.get('/finish/:service/:address/:id', authenticate.isLoggedIn, function (r
     var con = req.app.get('con');
 
     var id = req.params.id;
-    var user_id = req.user.id;
     q = 'SELECT * FROM temp_requests WHERE id = ' + id + ' AND user_id = ' + req.user.id;
-    console.log(q);
     con.query(q, function (err, records, fields) {
+        if (err) throw err;
         var temp_request = records[0];
-        if (err) console.log(err);
         if (records.length == 0) {
-            res.render('home');
-            console.log('access denied');
+            res.send('Access Denied');
             return
         }
         else {
-            console.log(records);
             status = temp_request.current_status;
+            if (status == 'approved') {
+                /*
+                q = 'SELECT requests.id, workers.id, workers.job, first_name, last_name, phone_number,' +
+                    'email_id, shop_address, profile_photo, average_rating, total_reviews ' +
+                    'FROM requests JOIN workers ON workers.id = requests.worker_id;';
+                con.query(q, funtion(err, records, fields) {
+
+                });
+                */
+                var testWorker = {
+                    first_name: 'Rick',
+                    last_name: 'Hayes',
+                    email_id: 'Rick_hayes59@gmail.com',
+                    phone_number: '9876543210',
+                    average_rating: '4.2',
+                    total_reviews: '3'
+                }
+                res.render('serviceFinish', { service: service, address: address, status: status, worker: testWorker });
+            }
+            else {
+                /*
+                var worker = {
+                    first_name: 'Rick',
+                    last_name: 'Hayes',
+                    email_id: 'Rick_hayes59@gmail.com',
+                    phone_number: '9876543210',
+                    average_rating: '4.2',
+                    total_reviews: '3'
+                };
+                */
+                var worker = null;
+                res.render('serviceFinish', { service: service, address: address, status: status, worker: worker });
+            }
         }
-        res.render('serviceFinish', { service: service, address: address, status: status });
     });
 
 });
@@ -77,7 +102,6 @@ router.post('/finish', authenticate.isLoggedIn, function (req, res) {
     var selectedAddress = req.body.address;
     var con = req.app.get('con');
 
-    console.log('Request Recieved');
     var newRequest = {
         user_id: req.user.id,
         current_status: 'pending',
@@ -85,11 +109,9 @@ router.post('/finish', authenticate.isLoggedIn, function (req, res) {
     }
     q = 'INSERT INTO temp_requests SET ?';
     con.query(q, newRequest, function (err, records, fields) {
-        console.log('inserting');
-        if (err) console.log(err);
+        if (err) throw err;
         else {
             var id = records.insertId;
-            console.log('it is', id);
             res.redirect('/service/finish/' + selectedService + '/' + selectedAddress + '/' + id);
         }
     });

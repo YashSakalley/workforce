@@ -50,7 +50,7 @@ app.use(session({
 }));
 
 // Passport Middleware
-initializePassport(passport, app);
+initializePassport(passport, app, con);
 
 //Defining Local Variables
 app.use(function (req, res, next) {

@@ -99,6 +99,11 @@
   letter-spacing: 0.4rem;
 }
 
+.main_header .header_title span {
+  font-size: 0.8em;
+  letter-spacing: 2.5rem;
+}
+
 .main_header .header_profile {
   display: flex;
 }
@@ -116,11 +121,11 @@
   flex-direction: column;
   align-items: stretch;
 
-  transition: all 0.2s ease-out;
+  transition: all 0.2s ease-in-out;
 }
 
 input[id="togglenav"]:checked + .service_nav {
-  flex-basis: 25%;
+  flex-basis: 26%;
 }
 
 input[id="togglenav"]:checked
@@ -136,6 +141,7 @@ input[id="togglenav"]:checked
 }
 
 .nav_option {
+  cursor: pointer;
   background-color: rgb(226, 224, 224);
   text-align: center;
   padding: 1rem;

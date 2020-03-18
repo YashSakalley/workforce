@@ -303,6 +303,50 @@ h1.rejected .status {
   font-size: 1.2rem;
 }
 
+.finish_worker {
+  box-shadow: 0.1rem 0.1rem 0.5rem 0.5rem rgb(220, 220, 220);
+  width: 60rem;
+  height: fit-content;
+  margin: 8rem;
+  border-radius: 0.4rem;
+}
+
+.finish_worker .main_details {
+  background-color: rgb(246, 230, 230);
+  padding: 1rem;
+
+  display: flex;
+}
+
+.finish_worker img {
+  width: 10rem;
+  height: 9.5rem;
+  margin-right: 1rem;
+}
+
+.finish_worker .worker_detail {
+}
+
+.finish_worker .worker_detail_name {
+  font-size: 2.5rem;
+  text-transform: uppercase;
+}
+
+.finish_worker .worker_detail_phone {
+  font-size: 2rem;
+  color: var(--color-primary-dark);
+}
+
+.finish_worker .worker_detail_rating {
+  background-color: aliceblue;
+  font-size: 4rem;
+  color: var(--color-primary-dark);
+  padding: 2rem;
+}
+
+.finish_worker .worker_detail_rating span {
+  font-size: 2rem;
+}
 /* Worker Page - Selecting JOB */
 
 .worker_main {
@@ -345,3 +389,41 @@ h1.rejected .status {
 
 .worker_main .worker_jobs {
 }
+
+/* Current Orders Page */
+
+.currentOrders_main .order {
+  margin: 2rem;
+  display: inline-block;
+  width: 44rem;
+  padding: 1rem;
+  border: 0.1rem solid rgb(233, 233, 233);
+  border-radius: 0.4rem;
+}
+
+.currentOrders_main .order_pending {
+  border-left: 0.4rem solid #daa915;
+}
+
+.currentOrders_main .order_approved {
+  border-left: 0.4rem solid #1be014;
+}
+
+.currentOrders_main .order_rejected {
+  border-left: 0.4rem solid #da3215;
+}
+
+.currentOrders_main .order_current_status {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.currentOrders_main .order_job {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.currentOrders_main .order_created_at {
+}
+
+/* Past Orders Page */

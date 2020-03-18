@@ -5,7 +5,6 @@ var authenticate = {
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
-        console.log('LogIn check successfull');
         return next();
     }
     res.redirect('/');

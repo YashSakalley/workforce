@@ -1,6 +1,6 @@
 var express = require('express'),
     router = express.Router(),
-    config = require('../config/config'),
+    config = require('../config/otp_config'),
     twilio = require('twilio'),
     client = twilio(config.accountSID, config.authToken);
 

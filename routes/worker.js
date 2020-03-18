@@ -23,7 +23,7 @@ router.post('/selectJob', function (req, res) {
 
     var request = JSON.parse(req.body.jobId);
     var worker_id = 1;
-
+    // var worker_id = req.user.id;
     var newRequest = {
         user_id: request.user_id,
         worker_id: worker_id,
@@ -33,7 +33,6 @@ router.post('/selectJob', function (req, res) {
     q1 = 'INSERT INTO requests SET ?';
     con.query(q1, newRequest, function (err, records, fields) {
         if (err) throw err;
-        console.log('main', records);
         q2 = 'UPDATE temp_requests SET current_status = ? WHERE id = ? ';
         con.query(q2, ['approved', request.id], function (err, records, fields) {
             if (err) throw err;

@@ -1,0 +1,12 @@
+<% include ./partials/header %>
+
+<div class="pastOrders_page" style="display: flex;">
+    <% include ./partials/navigation %>
+    <div class="pastOrders_main">
+        <% orders.forEach(function(order) { %>
+        <%= order.id %>
+        <% }) %>
+    </div>
+</div>
+
+<% include ./partials/footer %>
