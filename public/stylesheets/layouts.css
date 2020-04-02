@@ -60,7 +60,7 @@ hr {
   position: relative;
   box-sizing: border-box;
   width: 30rem;
-  margin: 3rem;
+  margin: 2rem 2.8rem;
   background-color: rgba(0, 0, 0, 0.8);
   border: 0.4rem solid white;
 }
@@ -103,6 +103,12 @@ hr {
 }
 
 .service_caption_text {
+}
+
+.service_main,
+.currentOrders_main,
+.worker_main {
+  width: 100%;
 }
 
 .service_main h1 {
@@ -392,6 +398,19 @@ h1.rejected .status {
 
 /* Current Orders Page */
 
+.currentOrders_main h1 {
+  padding: 2rem;
+  text-transform: uppercase;
+  font-size: 2.3rem;
+  border-bottom: 0.1rem solid rgb(180, 180, 180);
+  margin-bottom: 1rem;
+}
+
+.currentOrders_main h1 span {
+  font-size: 0.9em;
+  font-weight: lighter;
+}
+
 .currentOrders_main .order {
   margin: 2rem;
   display: inline-block;
@@ -399,6 +418,12 @@ h1.rejected .status {
   padding: 1rem;
   border: 0.1rem solid rgb(233, 233, 233);
   border-radius: 0.4rem;
+
+  transition: all 0.2s ease;
+}
+
+.currentOrders_main .order:hover {
+  box-shadow: 0.1rem 0.2rem 1.1rem 0.5rem rgb(180, 180, 180);
 }
 
 .currentOrders_main .order_pending {

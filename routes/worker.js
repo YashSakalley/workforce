@@ -9,7 +9,6 @@ router.get('/', function (req, res) {
         'ON users.id = temp_requests.user_id ' +
         'WHERE temp_requests.current_status = "pending"';
     con.query(q, function (err, requests, fields) {
-        console.log('Requests', requests);
         if (requests.length == 0) {
             var empty = [];
             res.render('worker', { empty: requests });

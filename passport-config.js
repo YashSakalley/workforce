@@ -25,7 +25,7 @@ function initialize(passport, app, con) {
 
     app.use(passport.initialize());
     app.use(passport.session());
-    passport.use(new LocalStrategy({ usernameField: 'email_id' }, authenticateUser));
+    passport.use('local-user', new LocalStrategy({ usernameField: 'email_id' }, authenticateUser));
     passport.serializeUser((user, done) => done(null, user.id));
     passport.deserializeUser((id, done) => {
         con.query('SELECT * FROM users WHERE id = ?', [id], function (err, users, fields) {

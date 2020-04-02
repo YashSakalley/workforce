@@ -66,19 +66,100 @@
   padding: 3rem;
 }
 
-.header_profile img {
-  overflow: hidden;
-  width: 3.5rem;
-  border: 2px solid white;
-  border-radius: 50%;
-}
-
 .header_profile input {
   display: none;
 }
 
-.header_profile input:checked + label {
+.header_profile label {
+  padding: 0.7rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.header_profile label:hover {
   background-color: rgb(228, 228, 228);
+}
+
+.header_profile input:checked + label {
+  background-color: rgb(200, 200, 200);
+}
+
+.header_profile input:checked + label + .header_profile_box {
+  opacity: 1;
+  visibility: visible;
+}
+
+.header_profile_box {
+  opacity: 0;
+  visibility: hidden;
+
+  position: absolute;
+  border: 0.2rem solid #b3b2c2;
+  border-radius: 0.7rem;
+  top: 5rem;
+  padding: 1rem;
+  background-color: white;
+  box-shadow: 0.1rem 0.1rem 0.7rem 0.2rem rgb(232, 230, 230);
+  transition: all 0.2s ease;
+}
+
+.header_profile_box--1 {
+  width: 19rem;
+  left: -15rem;
+}
+
+.header_profile_box--2 {
+  width: 19rem;
+  left: -10rem;
+}
+
+.header_profile_box--3 {
+  width: 30rem;
+  left: -10rem;
+  text-align: center;
+  font-size: 1.7rem;
+}
+
+.profile_box-user {
+  font-size: 1.8rem;
+}
+
+.profile_box-sign_out {
+  padding: 1rem 0.5rem;
+  text-align: center;
+  border-top: 1px solid #e8eaed;
+  border-top: center;
+  color: var(--color-primary);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.profile_box-manage {
+  border-top: 1px solid #e8eaed;
+  font-size: 1.6rem;
+  padding: 0.8rem 0.4rem;
+}
+
+.profile_box-about {
+  border-top: 1px solid #e8eaed;
+  color: rgb(100, 100, 100);
+}
+
+.profile_box-about span {
+  position: relative;
+  top: -4px;
+}
+
+.profile_box-image {
+  overflow: hidden;
+  border-radius: 50%;
+  display: inline-block;
+  height: 10rem;
+}
+
+.header_profile img {
+  width: 8.9rem;
+  overflow: hidden;
 }
 
 .main_header {
@@ -106,6 +187,7 @@
 
 .main_header .header_profile {
   display: flex;
+  position: relative;
 }
 
 .main_header .header_profile i {
@@ -114,18 +196,18 @@
 
 .service_nav {
   font-size: 2rem;
-  flex-basis: 10rem;
+  flex-basis: 6rem;
   box-shadow: 0.1rem 1rem 1rem 0.5rem rgb(180, 180, 180);
   z-index: 100;
   display: flex;
   flex-direction: column;
   align-items: stretch;
 
-  transition: all 0.2s ease-in-out;
+  transition: all 0.2s cubic-bezier(1, 0, 0, 1);
 }
 
 input[id="togglenav"]:checked + .service_nav {
-  flex-basis: 26%;
+  flex-basis: 30rem;
 }
 
 input[id="togglenav"]:checked
@@ -147,12 +229,45 @@ input[id="togglenav"]:checked
   padding: 1rem;
   margin-top: 1rem;
   display: flex;
+
+  position: relative;
+  transition: color 0.2s 0.2s;
+}
+
+.nav_option:hover {
+  color: white;
+}
+
+.nav_option::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 3px;
+  background-color: var(--color-primary);
+  transform: scaleY(0);
+
+  transition: transform 0.2s, width 0.4s cubic-bezier(1, 0, 0, 1) 0.2s;
+}
+
+.nav_option:hover::before {
+  transform: scaleY(1);
+  width: 100%;
 }
 
 .nav_option_text {
   overflow-wrap: break-word;
   margin-left: 1rem;
   display: none;
+  z-index: 100;
+
+  transition: display 0.2s 0.4s;
+}
+
+.nav_option_icon {
+  margin-left: 0.5rem;
+  z-index: 100;
 }
 
 /* Page Footer */

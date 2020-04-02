@@ -2,7 +2,12 @@
 
 <div class="currentOrders_page" style="display: flex;">
     <% include ./partials/navigation %>
-    <div class="currentOrders_main">
+    <main class="currentOrders_main">
+        <h1>
+            These are your currently placed orders.
+            <br>
+            <span>Click on an order for full details.</span>
+        </h1>
         <div class="orders">
             <% orders.forEach(function(order) { %>
             <a href="/service/finish/<%= order.job %>/<%= order.address.split('!').join(', ') %>/<%= order.id %>">
@@ -30,7 +35,7 @@
             </a>
             <% }) %>
         </div>
-    </div>
+    </main>
 </div>
 
 <% include ./partials/footer %>
