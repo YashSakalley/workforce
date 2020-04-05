@@ -50,6 +50,7 @@ router.post('/register', function (req, res) {
     address = tempAddress.house_number + '!';
     address += tempAddress.add1 + '!';
     if (tempAddress.add2) { address += tempAddress.add2 + '!' }
+    else { address += ' !' }
     address += tempAddress.pin + '!';
     address += tempAddress.city + '!';
     address += tempAddress.state;
@@ -63,7 +64,7 @@ router.post('/register', function (req, res) {
         profile_photo: req.body.profile_photo,
         password: req.body.password
     }
-    const hashedPassword = bcrypt.hash(req.body.password, 10);
+    // const hashedPassword = bcrypt.hash(req.body.password, 10); --Remove
 
     if (repassword != newUser.password) {
         req.flash('error', 'Password and re-entered password must be same');

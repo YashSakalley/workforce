@@ -59,36 +59,16 @@ router.get('/finish/:service/:address/:id', authenticate.isLoggedIn, function (r
         }
         else {
             status = temp_request.current_status;
+            job = temp_request.job;
             if (status == 'approved') {
-                /*
-                q = 'SELECT requests.id, workers.id, workers.job, first_name, last_name, phone_number,' +
-                    'email_id, shop_address, profile_photo, average_rating, total_reviews ' +
-                    'FROM requests JOIN workers ON workers.id = requests.worker_id;';
-                con.query(q, funtion(err, records, fields) {
-
+                q = 'select * from requests join workers on requests.worker_id = workers.id where current_status = "ongoing" and requests.user_id = ? and requests.job = ?';
+                con.query(q, [req.user.id, job], function (err, records, fields) {
+                    if (err) throw err;
+                    worker = records[0];
+                    res.render('serviceFinish', { service: service, address: address, status: status, worker: worker });
                 });
-                */
-                var testWorker = {
-                    first_name: 'Rick',
-                    last_name: 'Hayes',
-                    email_id: 'Rick_hayes59@gmail.com',
-                    phone_number: '9876543210',
-                    average_rating: '4.2',
-                    total_reviews: '3'
-                }
-                res.render('serviceFinish', { service: service, address: address, status: status, worker: testWorker });
             }
             else {
-                /*
-                var worker = {
-                    first_name: 'Rick',
-                    last_name: 'Hayes',
-                    email_id: 'Rick_hayes59@gmail.com',
-                    phone_number: '9876543210',
-                    average_rating: '4.2',
-                    total_reviews: '3'
-                };
-                */
                 var worker = null;
                 res.render('serviceFinish', { service: service, address: address, status: status, worker: worker });
             }
@@ -107,15 +87,24 @@ router.post('/finish', authenticate.isLoggedIn, function (req, res) {
         current_status: 'pending',
         job: selectedService
     }
-    q = 'INSERT INTO temp_requests SET ?';
-    con.query(q, newRequest, function (err, records, fields) {
-        if (err) throw err;
+    q1 = 'SELECT * FROM temp_requests WHERE user_id = ? and job = ?';
+    con.query(q1, [req.user.id, newRequest.job], function (err, records, fields) {
+        if (records.length == 0) {
+            q2 = 'INSERT INTO temp_requests SET ?';
+            con.query(q2, newRequest, function (err, records, fields) {
+                if (err) throw err;
+                else {
+                    var id = records.insertId;
+                    res.redirect('/service/finish/' + selectedService + '/' + selectedAddress + '/' + id);
+                }
+            });
+        }
         else {
-            var id = records.insertId;
-            res.redirect('/service/finish/' + selectedService + '/' + selectedAddress + '/' + id);
+            console.log('Request already created');
+            req.flash('err', 'Request already created. Please select a new Service or try selecting any other service');
+            res.redirect('/service/start');
         }
     });
-
 });
 
 module.exports = router;

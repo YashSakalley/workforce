@@ -39,21 +39,13 @@
                 <span>-</span>
                 <input type="text" name="otp4" maxlength="1" required id="otp4">
             </div>
+            <input type="role" name="role" value="<%= role %>" style="display: none;">
             <input class="btn-default" type="submit" value="Verify OTP">
         </div>
     </form>
 </body>
 
-<script>
-    var otp1 = document.getElementById('otp1');
-    var otp2 = document.getElementById('otp2');
-    var otp3 = document.getElementById('otp3');
-    var otp4 = document.getElementById('otp4');
+<script src="/scripts/script.js"></script>
+</body>
 
-    otp1.addEventListener('onkeyup', function () {
-        console.log('Change 1');
-        otp2.focus();
-    });
-
-</script>
-<% include ./partials/footer %>
+</html>
