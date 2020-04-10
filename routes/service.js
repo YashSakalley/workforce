@@ -28,6 +28,7 @@ router.post('/selectAddress', authenticate.isLoggedIn, function (req, res) {
     res.redirect('/service/selectAddress/' + selectedService);
 });
 
+// ---------- DELETE THIS ROUTE -------------- //
 router.get('/selectWorker/:service/:address', authenticate.isLoggedIn, function (req, res) {
     var con = req.app.get('con'); // MySQL Connection Object
     var service = req.params.service;
@@ -42,11 +43,13 @@ router.get('/selectWorker/:service/:address', authenticate.isLoggedIn, function 
     });
 });
 
+// ---------- DELETE THIS ROUTE -------------- //
+
 router.get('/finish/:service/:address/:id', authenticate.isLoggedIn, function (req, res) {
     var service = req.params.service;
     var address = req.params.address;
     var status = 'pending';
-    var con = req.app.get('con');
+    var con = req.app.get('con'); // MySQL Connection Object
 
     var id = req.params.id;
     q = 'SELECT * FROM temp_requests WHERE id = ' + id + ' AND user_id = ' + req.user.id;
@@ -80,7 +83,7 @@ router.get('/finish/:service/:address/:id', authenticate.isLoggedIn, function (r
 router.post('/finish', authenticate.isLoggedIn, function (req, res) {
     var selectedService = req.body.service;
     var selectedAddress = req.body.address;
-    var con = req.app.get('con');
+    var con = req.app.get('con'); // MySQL Connection Object
 
     var newRequest = {
         user_id: req.user.id,
@@ -103,6 +106,24 @@ router.post('/finish', authenticate.isLoggedIn, function (req, res) {
             console.log('Request already created');
             req.flash('err', 'Request already created. Please select a new Service or try selecting any other service');
             res.redirect('/service/start');
+        }
+    });
+});
+
+router.get('/completed/:id', authenticate.isLoggedIn, function (req, res) {
+    var con = req.app.get('con'); // MySQL Connection Object
+    var id = req.params.id;
+    var user = req.user.id;
+
+    q = 'SELECT * FROM requests WHERE id = ? and user_id = ?'
+    con.query(q, [id, user], function (err, records, fields) {
+        if ((!records) || (records.length == 0)) {
+            res.send('Invalid Request');
+            return;
+        }
+        else {
+            var order = records[0];
+            res.render('completedOrder', { order: order });
         }
     });
 });

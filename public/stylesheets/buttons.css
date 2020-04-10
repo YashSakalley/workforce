@@ -7,6 +7,8 @@
   cursor: pointer;
   text-transform: uppercase;
   font-size: 1.5rem;
+
+  transition: all 0.2s ease;
 }
 
 .btn-default-outline {
@@ -17,4 +19,17 @@
   cursor: pointer;
   text-transform: uppercase;
   font-size: 1.5rem;
+
+  transition: all 0.2s ease;
+}
+
+.btn-default-outline:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.btn-default:hover {
+  border: 0.3rem solid var(--color-primary-dark);
+  background-color: var(--color-primary-dark);
+  color: white;
 }

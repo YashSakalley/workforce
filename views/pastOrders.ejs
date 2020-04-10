@@ -2,11 +2,39 @@
 
 <div class="pastOrders_page" style="display: flex;">
     <% include ./partials/navigation %>
-    <div class="pastOrders_main">
-        <% orders.forEach(function(order) { %>
-        <%= order.id %>
-        <% }) %>
-    </div>
+    <main class="pastOrders_main">
+        <h1>
+            These are your previously completed orders.
+            <br>
+            <span>Click on an order for full details.</span>
+        </h1>
+        <div class="orders">
+            <% orders.forEach(function(order) { %>
+            <a href="/service/completed/<%= order.id %>">
+                <div class="completed_order 
+                <% if (order.current_status == 'ongoing') { %>
+                    order_ongoing
+                <% } %>
+                <% if (order.current_status == 'completed') { %>
+                    order_completed
+                <% } %>
+                <% if (order.current_status == 'failed') { %>
+                    order_failed
+                <% } %>">
+                    <div class="order_current_status">
+                        <%= order.current_status %>
+                    </div>
+                    <div class="order_job">
+                        <%= order.job %>
+                    </div>
+                    <div class="order_created_at">
+                        <%= order.created_at %>
+                    </div>
+                    <% }) %>
+                </div>
+            </a>
+        </div>
+    </main>
 </div>
 
 <% include ./partials/footer %>

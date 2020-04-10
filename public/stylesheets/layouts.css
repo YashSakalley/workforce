@@ -107,6 +107,7 @@ hr {
 
 .service_main,
 .currentOrders_main,
+.pastOrders_main,
 .worker_main {
   width: 100%;
 }
@@ -353,6 +354,7 @@ h1.rejected .status {
 .finish_worker .worker_detail_rating span {
   font-size: 2rem;
 }
+
 /* Worker Page - Selecting JOB */
 
 .worker_main {
@@ -398,19 +400,6 @@ h1.rejected .status {
 
 /* Current Orders Page */
 
-.currentOrders_main h1 {
-  padding: 2rem;
-  text-transform: uppercase;
-  font-size: 2.3rem;
-  border-bottom: 0.1rem solid rgb(180, 180, 180);
-  margin-bottom: 1rem;
-}
-
-.currentOrders_main h1 span {
-  font-size: 0.9em;
-  font-weight: lighter;
-}
-
 .currentOrders_main .order {
   margin: 2rem;
   display: inline-block;
@@ -438,17 +427,65 @@ h1.rejected .status {
   border-left: 0.4rem solid #da3215;
 }
 
-.currentOrders_main .order_current_status {
+/* Past Orders Page */
+
+.pastOrders_main .completed_order {
+  margin: 2rem;
+  display: inline-block;
+  width: 44rem;
+  padding: 1rem;
+  border: 0.1rem solid rgb(233, 233, 233);
+  border-radius: 0.4rem;
+
+  transition: all 0.2s ease;
+}
+
+.pastOrders_main .completed_order:hover {
+  box-shadow: 0.1rem 0.2rem 1.1rem 0.5rem rgb(180, 180, 180);
+}
+
+.pastOrders_main .order_ongoing {
+  border-left: 0.4rem solid #ddaa4a;
+}
+
+.pastOrders_main .order_completed {
+  border-left: 0.4rem solid #1529da;
+}
+
+.pastOrders_main .order_failed {
+  border-left: 0.4rem solid #da3215;
+}
+
+/* Combined Current Orders and Past Orders */
+
+.currentOrders_main h1,
+.pastOrders_main h1 {
+  padding: 2rem;
+  text-transform: uppercase;
+  font-size: 2.3rem;
+  border-bottom: 0.1rem solid rgb(180, 180, 180);
+  margin-bottom: 1rem;
+}
+
+.currentOrders_main h1 span,
+.pastOrders_main h1 span {
+  font-size: 0.9em;
+  font-weight: lighter;
+}
+
+.currentOrders_main .order_current_status,
+.pastOrders_main .order_current_status {
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-.currentOrders_main .order_job {
+.currentOrders_main .order_job,
+.pastOrders_main .order_job {
   font-size: 2rem;
   font-weight: 600;
 }
 
-.currentOrders_main .order_created_at {
+.currentOrders_main .order_created_at,
+.pastOrders_main .order_created_at {
+  font-size: 1.5rem;
 }
-
-/* Past Orders Page */

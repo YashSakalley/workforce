@@ -23,9 +23,9 @@
             <div class="logo"><img src="/images/workforce2.png" alt=""></div>
             <div class="nav_items">
                 <li class="current_item">HOME</li>
-                <li> <label for="services-toggle"> SERVICES </label> </li>
+                <li> <a href="#services"> SERVICES </a> </li>
                 <li>ABOUT</li>
-                <li>CONTACT US</li>
+                <li> <a href="/contactUs"> CONTACT US </a> </li>
             </div>
             <div class="nav_menu">
                 <span class="menu">
@@ -89,19 +89,84 @@
                 <div class="sub_title">WE SERVE BETTER</div>
 
                 <div class="buttons">
+                    <% if (!currentUser) { %>
                     <form action="/login" method="POST">
                         <input type="text" placeholder="ENTER PHONE NUMBER" maxlength="10" minlength="10" required>
                         <br>
                         <input type="submit" value="GET STARTED" class="btn-default">
+
                         <a href="#services" class="btn-default-outline">
                             LEARN MORE &nbsp; <i class="fas fa-angle-down"></i>
                         </a>
                     </form>
+                    <% } %>
+                    <% if (currentUser) { %>
+                    <h2>Welcome Back <%= currentUser.first_name %></h2>
+                    <br>
+                    <a href="/service/start" class="btn-default-outline">BOOK SERVICE</a>
+                    <% } %>
                 </div>
             </div>
         </div>
     </main>
 
+    <% include ./partials/popup %>
+
+    <div class="landing_services">
+        <a name="services"></a>
+        Services Slideshow
+    </div>
+
+    <div class="landing_platforms">
+        <div class="platform_text">
+            <h1> Multi Platform app </h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, eius iure! Aspernatur illo eos fuga. Ex
+                quidem
+                voluptatum nam quas perspiciatis libero obcaecati quaerat unde excepturi error. Numquam, at quo.
+                <br><br>
+                Enter your phone number below to recieve a link to our app. or <a href="#" target="_blank">Click
+                    here</a>
+            </p>
+
+            <form action="/sendAppLink" method="POST">
+                <input type="text" name="phone" placeholder="Enter phone number">
+                <button class="btn-default">Get App</button>
+            </form>
+        </div>
+        <div class="platform_image">
+            <img src="https://img.favpng.com/3/22/21/responsive-web-design-computer-icons-cross-platform-software-mobile-app-development-png-favpng-uXpZgmSrSZ0KzcSfHydmcZ5Jg.jpg"
+                alt="">
+        </div>
+    </div>
+
+    <div class="landing_workers">
+        <h1> Are you looking for a job </h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat dolorum esse nobis dolor vero impedit ipsum
+            praesentium veritatis nulla voluptas. Aliquam molestiae incidunt magnam debitis sed cupiditate cum corrupti
+            repellendus.</p>
+        <div><img src="/images/landing.png" alt=""></div>
+        <br>
+
+        <a href="/worker" class="btn-default" style="color: white;">GO TO WORKFORCE WORKER</a>
+
+        <br><br>
+    </div>
+
+    <footer class="footer">
+        Footer Goes Here
+    </footer>
+
+    <!-- Custom JavaScripts -->
+    <script src="/scripts/script.js"></script>
+</body>
+
+<script>
+    console.log('Landing Page Javascript');
+</script>
+
+</html>
+
+<div class="delete" style="display: none;">
     <a name="services"></a>
     <div class="services">
         <div class="services-heading">
@@ -160,24 +225,4 @@
             <span class="services-toggle_invisible">CLOSE</span>
         </label>
     </div>
-
-    <% include ./partials/popup %>
-
-    <div class="landing_services">
-
-    </div>
-
-    <div class="landing_platforms">
-        Multi Platform app
-    </div>
-
-
-    <!-- Custom JavaScripts -->
-    <script src="/scripts/script.js"></script>
-</body>
-
-<script>
-    console.log('Landing Page Javascript');
-</script>
-
-</html>
+</div>

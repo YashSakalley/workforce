@@ -197,7 +197,7 @@
 .service_nav {
   font-size: 2rem;
   flex-basis: 6rem;
-  box-shadow: 0.1rem 1rem 1rem 0.5rem rgb(180, 180, 180);
+  box-shadow: 0.1rem -1rem 1rem 0.5rem rgb(180, 180, 180);
   z-index: 100;
   display: flex;
   flex-direction: column;
@@ -276,5 +276,7 @@ input[id="togglenav"]:checked
   width: 100%;
   background-color: rgb(50, 50, 50);
   padding: 2rem;
+  color: var(--text-color);
+  font-size: 2rem;
   z-index: 105;
 }

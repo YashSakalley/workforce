@@ -70,8 +70,8 @@ app.use('/worker', workerRouter);
 app.use('/test', testRouter);
 
 // app.get('*', function (req, res) {
-//     console.log('404 not found');
-//     res.send('404 not found');
+//     console.log('404 page not found');
+//     res.render('notFound');
 // });
 
 app.listen(PORT, function () {

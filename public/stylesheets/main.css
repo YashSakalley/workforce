@@ -45,3 +45,8 @@ body {
   backface-visibility: hidden;
   height: 100%;
 }
+
+::selection {
+  background-color: var(--color-primary-dark);
+  color: white;
+}
