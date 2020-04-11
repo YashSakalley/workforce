@@ -72,6 +72,38 @@
   box-sizing: border-box;
 }
 
+.header_user-profile {
+  position: relative;
+}
+
+.header_user-profile label {
+  cursor: pointer;
+}
+
+.header_user-profile .options {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  left: -8rem;
+  text-align: center;
+  border-radius: 8px;
+  transition: 0.2s ease;
+  box-shadow: 0.1rem 0.1rem 2.1rem 0.1rem rgb(26, 26, 26);
+}
+
+.header_user-profile .options .user {
+  background-color: rgb(50, 50, 50);
+}
+
+.header_user-profile hr {
+  width: 100%;
+}
+
+.header_user-profile input:checked ~ .options {
+  opacity: 1;
+  visibility: visible;
+}
+
 input[type="text"] {
   height: 5rem;
   width: 95%;

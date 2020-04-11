@@ -1,10 +1,54 @@
-INSERT INTO workers
-    (first_name, last_name, email_id, phone_number, shop_address, average_rating, total_reviews, job, password, profile_photo)
-VALUES
-    ('Rick', 'Hayes', 'Rick_Hayes59@gmail.com', 12345678, 'Indrapuri', 4.2, 3, 'House Cleaning', 'pass1'),
-    ('Frankie', 'Kuhn', 'Frankie_Kuhn65@hotmail.com', 65784651, 'Arera Colony', 2.1, 5, 'Party Decorator', 'pass2'),
-    ('Boobie', 'Baba', 'Bobbie18@hotmail.com', 66145654, 'Shahpura', 5.0, 2, 'Plumbing', 'pass3'),
-    ('Kory', 'Daniells', 'Kory73@hotmail.com', 9898974, 'Shivaji Nagar', 4.1, 1, 'Electrician', 'pass4'),
-    ('Chadrick', 'Turcotte', 'Chadrick_Turcotte60@hotmail.com', 000218, 'Minal Residency', 3.2, 10, 'Hair Salon', 'pass5');
-
--- SELECT requests.id, workers.id, current_status, workers.job, first_name, last_name, phone_number, email_id, shop_address, profile_photo, average_rating, total_reviews FROM requests JOIN workers ON workers.id = requests.worker_id;
+DROP DATABASE IF EXISTS workforce;
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(255),
+  last_name VARCHAR(255),
+  email_id VARCHAR(255) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  phone_number VARCHAR(10) UNIQUE NOT NULL,
+  address VARCHAR(255),
+  profile_photo VARCHAR(255),
+  created_at TIMESTAMP DEFAULT NOW()
+);
+CREATE TABLE workers (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(255) NOT NULL,
+  last_name VARCHAR(255) NOT NULL,
+  email_id VARCHAR(255) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  phone_number VARCHAR(10) UNIQUE NOT NULL,
+  shop_address VARCHAR(255) NOT NULL,
+  profile_photo VARCHAR(255),
+  created_at TIMESTAMP DEFAULT NOW(),
+  average_rating FLOAT,
+  total_reviews INT,
+  job VARCHAR(50) UNIQUE
+);
+CREATE TABLE reviews (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  rating INT,
+  reviews_text VARCHAR(255),
+  worker_id INT,
+  user_id INT,
+  created_at TIMESTAMP DEFAULT NOW(),
+  FOREIGN KEY(user_id) REFERENCES users(id),
+  FOREIGN KEY(worker_id) REFERENCES workers(id)
+);
+CREATE TABLE requests (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  created_at TIMESTAMP DEFAULT NOW(),
+  user_id INT NOT NULL,
+  worker_id INT NOT NULL,
+  current_status VARCHAR(20),
+  job VARCHAR(50),
+  FOREIGN KEY(user_id) REFERENCES users(id),
+  FOREIGN KEY(worker_id) REFERENCES workers(id)
+);
+CREATE TABLE temp_requests (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW(),
+  current_status VARCHAR(20),
+  job VARCHAR(50) NOT NULL,
+  FOREIGN KEY(user_id) REFERENCES users(id)
+);

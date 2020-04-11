@@ -50,14 +50,27 @@
                     <% } %>
                     <% if (currentUser) { %>
                     <div class="header_user-profile">
-                        Hi <%= currentUser.first_name %>
-                        <i class="fas fa-user"></i>
+                        <input type="checkbox" id="profile" style="display: none;">
+                        <label for="profile">
+                            <i class="fas fa-user"></i>
+                            <%= currentUser.first_name %>
+                            <i class="fas fa-angle-down"></i>
+                        </label>
+                        <div class="options">
+                            <a href="/auth/logout">
+                                <div class="user logout">
+                                    Logout
+                                </div>
+                            </a>
+                            <hr>
+                            <a href="/user">
+                                <div class="user logout">
+                                    My Account
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                    <div class="user logout">
-                        <a href="/auth/logout">
-                            Logout
-                        </a>
-                    </div>
+
                     <% } %>
 
                 </span>
