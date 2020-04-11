@@ -5,6 +5,8 @@
   --color-primary: #30a088;
   --color-primary-light: #4af0cc;
   --color-primary-dark: #206b5b;
+  --color-success: rgb(60, 156, 73);
+  --color-error: rgb(228, 88, 88);
 
   --text-color: white;
 }

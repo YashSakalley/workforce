@@ -140,6 +140,7 @@
   border-top: 1px solid #e8eaed;
   font-size: 1.6rem;
   padding: 0.8rem 0.4rem;
+  cursor: pointer;
 }
 
 .profile_box-about {

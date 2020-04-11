@@ -1,4 +1,8 @@
 <% include ./partials/header %>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCm_GrSti6BA79AerJkEcrmCusdDhDCsko">
+</script>
 
 <div class="address_page" style="display: flex;">
     <% include ./partials/navigation %>
@@ -13,10 +17,12 @@
                 <input type="text" name="service" value="<%= service %>" style="display: none;">
                 <input type="radio" name="address" id="googleAdd" value="googleAdd">
                 <label for="googleAdd">
-                    <div class="address">
-                        <i class="fas fa-map-marker-alt"></i>
-                        Choose current location
-                    </div>
+                    <a href="#addressPopUp">
+                        <div class="address">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Choose a location
+                        </div>
+                    </a>
                 </label>
                 <div class="or">OR</div>
                 <input type="radio" name="address" id="add1" value="<%= address.line1 %> 
@@ -33,11 +39,10 @@
                     </div>
                 </label>
                 <input type="submit" id="submit">
+                <div class="add_address">
+
+                </div>
             </form>
-            <div class="add_address">
-                <i class="far fa-edit"></i>
-                Edit Address
-            </div>
         </div>
         <div class="form_finish">
             <a href="/service/start" class="btn-default-outline">BACK</a>
@@ -45,4 +50,31 @@
         </div>
     </main>
 </div>
+
+<div class="popup" id="addressPopUp">
+    <form action="/service/finish" method="POST">
+        <div class="popup_content" style="flex-direction: column; padding: 2rem;">
+            <textarea class="popup_address" id="address"></textarea>
+            <div>
+                <input type="text" value="<%= service %>" name="service">
+                <input type="text" name="map" value="true">
+                <!-- __map__,lat,lng -->
+                <input class="popup_lat" name="lat" id="lat"></input>
+                <input class="popup_lng" name="lng" id="lng"></input>
+            </div>
+            <div class="popup_map" id="map">Map</div>
+            <div class="popup_close">
+                <a href="#">
+                    <i class="fas fa-times"></i>
+                </a>
+            </div>
+            <br>
+            <div style="display: flex; justify-content: flex-end;">
+                <a href="#" class="btn-default-outline">CANCEL</a>
+                <input type="submit" class="btn-default" value="done">
+            </div>
+        </div>
+    </form>
+</div>
+
 <% include ./partials/footer %>

@@ -17,20 +17,58 @@
                 <span>WORKER</span>
             </a>
         </div>
-        <div class="header_profile">
-            <input type="checkbox" id="bell">
-            <label for="bell">
-                <i class="fas fa-bell"></i>
-            </label>
+        <div class="header_profile" id="header_profile">
 
-            <input type="checkbox" id="envelope">
-            <label for="envelope">
-                <i class="fas fa-envelope"></i>
-            </label>
+            <a href="#" style="cursor: default;">
+                <input type="checkbox" id="bell">
+                <label for="bell">
+                    <i class="fas fa-bell"></i>
+                </label>
+                <div class="header_profile_box header_profile_box--1">
+                    This Text Should Appear 1
+                </div>
+            </a>
 
-            <input type="checkbox" id="user">
-            <label for="user">
-                <i class="fas fa-user"></i>
-            </label>
+            <a href="#" style="cursor: default;">
+                <input type="checkbox" id="envelope">
+                <label for="envelope">
+                    <i class="fas fa-envelope"></i>
+                </label>
+                <div class="header_profile_box header_profile_box--2">
+                    This Text Should Appear 2
+                </div>
+            </a>
+
+            <a href="" style="cursor: default;">
+                <input type="checkbox" id="user">
+                <label for="user">
+                    <i class="fas fa-user"></i>
+                </label>
+                <div class="header_profile_box header_profile_box--3">
+                    <div class="profile_box-user">
+                        <div class="profile_box-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Chris_Evans_-_Captain_America_2_press_conference_headshot.jpg"
+                                alt="">
+                        </div>
+                        <br>
+                        <%= currentUser.first_name + ' ' + currentUser.last_name %>
+                        <%= currentUser.email_id %>
+
+                        <div class="profile_box-manage">
+                            Manage your Workforce Account
+                        </div>
+                    </div>
+                    <div class="profile_box-sign_out">
+                        Sign out from Workforce
+                    </div>
+                    <div class="profile_box-about">
+                        <!-- <a href="/about"> About </a> -->
+                        <label for="about"> About </label>
+                        <span> . </span>
+                        <!-- <a href="/contactUs"> Contact Us </a> -->
+                        <label for="contact_us"> Contact Us </label>
+                    </div>
+                </div>
+            </a>
         </div>
     </header>

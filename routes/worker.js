@@ -85,11 +85,12 @@ router.post('/register', function (req, res) {
 router.get('/selectJob', authenticate.isLoggedIn, function (req, res) {
     var con = req.app.get('con'); // MySQL Connection Object
 
-    q = 'SELECT first_name, last_name, phone_number, address, temp_requests.id, job, user_id ' +
+    q = 'SELECT first_name, last_name, phone_number, temp_requests.address as address, temp_requests.id, job, user_id ' +
         'FROM temp_requests JOIN users ' +
         'ON users.id = temp_requests.user_id ' +
         'WHERE temp_requests.current_status = "pending"';
     con.query(q, function (err, requests, fields) {
+        if (err) throw err;
         if (requests.length == 0) {
             var empty = [];
             res.render('worker', { empty: requests });
@@ -102,14 +103,17 @@ router.post('/selectJob', function (req, res) {
     var con = req.app.get('con'); // MySQL Connection Object
 
     var request = JSON.parse(req.body.jobId);
-    // var worker_id = 1;
+    var address = req.body.address;
     var worker_id = req.user.id;
+
     var newRequest = {
         user_id: request.user_id,
         worker_id: worker_id,
         current_status: 'ongoing',
-        job: request.job
+        job: request.job,
+        address: address
     }
+    console.log('address', address);
     q1 = 'INSERT INTO requests SET ?';
     con.query(q1, newRequest, function (err, records, fields) {
         if (err) throw err;

@@ -8,10 +8,11 @@ router.get('/', authenticate.isLoggedIn, function (req, res) {
 
 router.get('/currentOrders', authenticate.isLoggedIn, function (req, res) {
     var con = req.app.get('con');
-    q = 'SELECT current_status, job, address, temp_requests.created_at, temp_requests.id ' +
+    q = 'SELECT current_status, job, temp_requests.address as address, temp_requests.created_at, temp_requests.id ' +
         'FROM temp_requests JOIN users ON users.id = temp_requests.user_id ' +
         'WHERE user_id = ?';
     con.query(q, req.user.id, function (err, orders, fields) {
+        console.log(orders);
         res.render('currentOrders', { orders: orders });
     });
 });

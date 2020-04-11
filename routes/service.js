@@ -82,14 +82,26 @@ router.get('/finish/:service/:address/:id', authenticate.isLoggedIn, function (r
 
 router.post('/finish', authenticate.isLoggedIn, function (req, res) {
     var selectedService = req.body.service;
-    var selectedAddress = req.body.address;
+    var selectedAddress = req.user.address;
+    var isMap = req.body.map;
+    console.log(isMap);
+    if (isMap == 'true') {
+        var lat = req.body.lat;
+        var lng = req.body.lng;
+        console.log('__map__,', lat, ',', lng);
+        selectedAddress = '__map__,' + lat + ',' + lng;
+    } else {
+        console.log(selectedAddress);
+    }
     var con = req.app.get('con'); // MySQL Connection Object
 
     var newRequest = {
         user_id: req.user.id,
         current_status: 'pending',
-        job: selectedService
+        job: selectedService,
+        address: selectedAddress
     }
+
     q1 = 'SELECT * FROM temp_requests WHERE user_id = ? and job = ?';
     con.query(q1, [req.user.id, newRequest.job], function (err, records, fields) {
         if (records.length == 0) {
@@ -104,7 +116,7 @@ router.post('/finish', authenticate.isLoggedIn, function (req, res) {
         }
         else {
             console.log('Request already created');
-            req.flash('err', 'Request already created. Please select a new Service or try selecting any other service');
+            req.flash('error', 'Request already created. Please select a new Service or try selecting any other service');
             res.redirect('/service/start');
         }
     });

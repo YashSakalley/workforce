@@ -7,6 +7,7 @@
   cursor: pointer;
   text-transform: uppercase;
   font-size: 1.5rem;
+  text-align: center;
 
   transition: all 0.2s ease;
 }
@@ -19,6 +20,7 @@
   cursor: pointer;
   text-transform: uppercase;
   font-size: 1.5rem;
+  text-align: center;
 
   transition: all 0.2s ease;
 }
@@ -31,5 +33,17 @@
 .btn-default:hover {
   border: 0.3rem solid var(--color-primary-dark);
   background-color: var(--color-primary-dark);
+  color: white;
+}
+
+.btn-success {
+  border: 0.3rem solid var(--color-success);
+  background-color: var(--color-success);
+  color: white;
+}
+
+.btn-error {
+  border: 0.3rem solid var(--color-error);
+  background-color: var(--color-error);
   color: white;
 }

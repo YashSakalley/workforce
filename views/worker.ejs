@@ -8,9 +8,10 @@
             <span> Choose any one of them and click next. </span>
         </h1>
         <form class="worker_jobs" action="/worker/selectJob" method="POST">
+            <input type="text" name="address" id="job_address" required>
             <% requests.forEach(function(request){ %>
             <input type="radio" name="jobId" id="<%= request.id %>" value="<%= JSON.stringify(request) %>">
-            <label for="<%= request.id %>" class="worker_job">
+            <label for="<%= request.id %>" class="worker_job" onclick="select('<%= request.address %>')">
                 <%= request.first_name %>
                 <%= request.last_name %>
                 <%= request.phone_number %>
@@ -26,3 +27,11 @@
     </main>
 </div>
 <% include ./partials/footer %>
+
+<script>
+    var add = document.getElementById('job_address');
+    function select(address) {
+        add.value = address;
+        console.log(add);
+    }
+</script>
