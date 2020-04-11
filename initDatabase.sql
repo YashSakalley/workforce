@@ -1,4 +1,6 @@
 DROP DATABASE IF EXISTS workforce;
+CREATE DATABASE workforce;
+USE workforce;
 CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   first_name VARCHAR(255),
