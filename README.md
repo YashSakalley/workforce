@@ -9,7 +9,7 @@ If you have git cli installed, run: <br>
 
 If not installed, click on "Clone or Download" and select "Download ZIP".
 
-Run the following command in cmd: <br>
+Run the following command in cmd in the workforce folder: <br>
 <code>npm install</code>
 
 Change the folder name "config - Copy" to "config"
