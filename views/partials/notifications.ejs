@@ -1,0 +1,50 @@
+<% if (error != '') {%>
+<div class="notif_error" id="error">
+    <div style="color: var(--color-error);">
+        <i class="fas fa-exclamation-triangle"></i>
+    </div>
+    <div>
+        <%= error %>
+    </div>
+    <div style="cursor: pointer;" onclick="closeError()" class="close">
+        <i class="fas fa-times"></i>
+    </div>
+</div>
+<% } %>
+
+<% if (success != '') {%>
+<div class="notif_success" id="success">
+    <div style="color: var(--color-success);">
+        <i class="fas fa-exclamation-triangle"></i>
+    </div>
+    <div>
+        <%= success %>
+    </div>
+    <div style="cursor: pointer;" onclick="closeSuccess()" class="close">
+        <i class="fas fa-times"></i>
+    </div>
+</div>
+<% } %>
+
+<script>
+    var success = document.getElementById('success');
+    var error = document.getElementById('error');
+
+    function closeSuccess() {
+        success.style.display = 'none';
+    }
+
+    function closeError() {
+        error.style.display = 'none';
+    }
+</script>
+
+<style>
+    .close {
+        transition: all 0.2s ease;
+    }
+
+    .close:hover {
+        background-color: rgb(180, 180, 180);
+    }
+</style>

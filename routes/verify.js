@@ -6,33 +6,42 @@ var express = require('express'),
 
 // Show OTP Page
 router.get('/:phone/:role', function (req, res) {
-    var msg = req.flash('msg');
     var phone = req.params.phone;
     var role = req.params.role;
-    res.render('verify', { phone: phone, msg: msg, role: role });
+    res.render('verify', { phone: phone, role: role });
 });
 
 // Send OTP
 router.post('/', function (req, res) {
     var phone = req.body.phone;
     var role = req.body.role;
-    console.log('/verify post', role);
-    client
-        .verify
-        .services(config.serviceID)
-        .verifications
-        .create({
-            to: '+91' + phone,
-            channel: "sms"
-        })
-        .then((data) => {
-            console.log('OTP sent to ' + phone);
-        })
-        .catch((err) => {
-            console.log(err);
-            console.log('Error occured');
-        });
-    res.redirect('/verify/' + phone + '/' + role);
+    var con = req.app.get('con') // MySQL Connection Object
+    q = 'SELECT * FROM users WHERE phone_number = ?';
+    con.query(q, phone, function (err, users, fields) {
+        if (users.length != 0) {
+            req.flash('error', 'User with the given phone number already exists');
+            res.redirect('back');
+            return;
+        } else {
+            console.log('/verify post', role);
+            client
+                .verify
+                .services(config.serviceID)
+                .verifications
+                .create({
+                    to: '+91' + phone,
+                    channel: "sms"
+                })
+                .then((data) => {
+                    console.log('OTP sent to ' + phone);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    console.log('Error occured');
+                });
+            res.redirect('/verify/' + phone + '/' + role);
+        }
+    });
 });
 
 // Verify OTP
@@ -61,7 +70,7 @@ router.post('/OTP', function (req, res) {
                 }
             }
             else {
-                req.flash('msg', 'OTP is wrong');
+                req.flash('error', 'OTP is wrong');
                 console.log('Otp is Wrong');
                 res.redirect('back');
             }

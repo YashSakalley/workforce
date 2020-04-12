@@ -1,0 +1,79 @@
+<style>
+    #toggle_nav {
+        align-self: flex-start;
+        padding: 2rem;
+        cursor: pointer;
+    }
+
+    #toggle_nav:hover {
+        background-color: rgb(228, 228, 228);
+    }
+</style>
+<input type="checkbox" id="togglenav" style="display: none;">
+<nav class="service_nav">
+    <label for="togglenav" style="align-self: flex-start; padding: 2rem;" id="toggle_nav">
+        <i class="fas fa-bars"></i>
+    </label>
+    <ul class="nav_options">
+        <a href="/">
+            <li class="nav_option">
+                <div class="nav_option_icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="nav_option_text">
+                    HOME
+                </div>
+            </li>
+        </a>
+        <a href="/worker/selectJob">
+            <li class="nav_option nav_option-current">
+                <div class="nav_option_icon">
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="nav_option_text">
+                    AVAILABLE JOBS
+                </div>
+            </li>
+        </a>
+        <a href="/worker/currentJobs">
+            <li class="nav_option">
+                <div class="nav_option_icon">
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <div class="nav_option_text">
+                    CURRENT JOBS
+                </div>
+            </li>
+        </a>
+        <a href="/worker/pastJobs">
+            <li class="nav_option">
+                <div class="nav_option_icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <div class="nav_option_text">
+                    PAST JOBS
+                </div>
+            </li>
+        </a>
+        <a href="/contactUs" id="contactUs">
+            <li class="nav_option">
+                <div class="nav_option_icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <div class="nav_option_text">
+                    CONTACT US
+                </div>
+            </li>
+        </a>
+        <a href="/feedback">
+            <li class="nav_option">
+                <div class="nav_option_icon">
+                    <i class="far fa-sticky-note"></i>
+                </div>
+                <div class="nav_option_text">
+                    FEEDBACK
+                </div>
+            </li>
+        </a>
+    </ul>
+</nav>

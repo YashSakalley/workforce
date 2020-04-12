@@ -1,0 +1,14 @@
+<% include ./partials/workerHeader %>
+
+<div class="currentJobs_page" style="display: flex;">
+    <% include ./partials/workerNavigation %>
+    <main class="currentJobs_main">
+        <h1>
+            These are the jobs you approved
+            <span>Click for full details</span>
+        </h1>
+        <div>
+            <%= jobs %>
+        </div>
+    </main>
+</div>

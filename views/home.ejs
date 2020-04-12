@@ -17,6 +17,7 @@
 </head>
 
 <body>
+    <% include ./partials/notifications %>
     <main class="main">
         <div class="background"></div>
         <nav class="nav">
@@ -103,8 +104,10 @@
 
                 <div class="buttons">
                     <% if (!currentUser) { %>
-                    <form action="/login" method="POST">
-                        <input type="text" placeholder="ENTER PHONE NUMBER" maxlength="10" minlength="10" required>
+                    <form action="/verify" method="POST">
+                        <input type="text" placeholder="ENTER PHONE NUMBER" name="phone" maxlength="10" minlength="10"
+                            required>
+                        <input type="text" name="role" value="user" style="display: none;">
                         <br>
                         <input type="submit" value="GET STARTED" class="btn-default">
 

@@ -56,11 +56,12 @@
         <div class="popup_content" style="flex-direction: column; padding: 2rem;">
             <textarea class="popup_address" id="address"></textarea>
             <div>
-                <input type="text" value="<%= service %>" name="service">
-                <input type="text" name="map" value="true">
-                <!-- __map__,lat,lng -->
-                <input class="popup_lat" name="lat" id="lat"></input>
-                <input class="popup_lng" name="lng" id="lng"></input>
+                <div style="display: none;">
+                    <input type="text" value="<%= service %>" name="service">
+                    <input type="text" name="map" value="true">
+                    <input class="popup_lat" name="lat" id="lat"></input>
+                    <input class="popup_lng" name="lng" id="lng"></input>
+                </div>
             </div>
             <div class="popup_map" id="map">Map</div>
             <div class="popup_close">

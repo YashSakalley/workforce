@@ -168,7 +168,7 @@
 .main_header {
   display: flex;
   justify-content: space-between;
-  align-items: stretch;
+  align-items: center;
   padding: 1rem 2rem;
   font-size: 3rem;
   border-bottom: 0.2rem solid rgb(180, 180, 180);
@@ -186,6 +186,7 @@
 .main_header .header_title span {
   font-size: 0.8em;
   letter-spacing: 2.5rem;
+  display: block;
 }
 
 .main_header .header_profile {
@@ -282,4 +283,34 @@ input[id="togglenav"]:checked
   color: var(--text-color);
   font-size: 2rem;
   z-index: 105;
+}
+
+.notif_error,
+.notif_success {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -10%);
+  border: 0.3rem solid black;
+  border-radius: 1.2rem;
+  padding: 2rem;
+  background-color: white;
+  z-index: 1005;
+  font-size: 2rem;
+
+  display: flex;
+  align-items: center;
+}
+
+.notif_error {
+  border-color: var(--color-error);
+}
+
+.notif_success {
+  border-color: var(--color-success);
+}
+
+.notif_error > *,
+.notif_success > * {
+  padding: 1rem;
 }

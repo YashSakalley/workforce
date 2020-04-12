@@ -1,16 +1,44 @@
-<link rel="stylesheet" href="/stylesheets/style.css">
+<html>
 
+<head>
+    <title>Welcome to Workforce Worker</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <style>
+        body {
+            background: url(https://images.wallpapersden.com/image/download/windows-10-clean-dark_63851_1920x1080.jpg);
+            background-size: cover;
+        }
+    </style>
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/dbaab9daf5.js" crossorigin="anonymous"></script>
+    <script>
+        if ('<%= currentUser %>') {
+            window.location.href = '/worker/selectJob';
+        }
+    </script>
+</head>
 
-<form action="/verify" method="POST">
-    <input type="text" name="phone" placeholder="Enter Phone Number">
-    <input type="text" name="role" value="worker">
-    <input type="submit" value="Send OTP">
-</form>
+<body>
+    <% include ./partials/notifications %>
+    <div class="worker_box">
+        <div class="box--register">
+            <h1>LOGIN</h1>
+            <form action="/worker/login" method="POST">
+                <input type="email" name="email_id" placeholder="Enter Email" autofocus> <br>
+                <input type="password" name="password" placeholder="Enter Password"> <br>
+                <input class="btn-default" type="submit" value="LOGIN">
+            </form>
+        </div>
+        <div class="box--login">
+            <h1>REGISTER</h1>
+            <form action="/verify" method="POST">
+                <input type="text" name="phone" minlength="10" maxlength="10" placeholder="Enter Phone Number" required>
+                <br>
+                <input type="text" name="role" value="worker" style="display: none;"> <br>
+                <input class="btn-default" type="submit" value="Send OTP">
+            </form>
+        </div>
+    </div>
+</body>
 
-<form action="/worker/login" method="POST">
-    <input type="email" name="email_id" placeholder="Enter Email">
-    <input type="password" name="password" placeholder="Enter Password">
-    <input type="submit" value="LOGIN">
-</form>
-
-<% include ./partials/footer %>
+</html>

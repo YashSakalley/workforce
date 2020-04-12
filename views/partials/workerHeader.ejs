@@ -10,9 +10,10 @@
 </head>
 
 <body>
+    <% include ./notifications %>
     <header class="main_header">
         <div class="header_title">
-            <a href="/">
+            <a href="/worker">
                 WORKFORCE <br>
                 <span>WORKER</span>
             </a>
@@ -24,7 +25,7 @@
                 <label for="bell">
                     <i class="fas fa-bell"></i>
                 </label>
-                <div class="header_profile_box header_profile_box--1">
+                <div class="header_profile_box header_profile_box--1" onclick="event.preventDefault()">
                     This Text Should Appear 1
                 </div>
             </a>
@@ -34,7 +35,7 @@
                 <label for="envelope">
                     <i class="fas fa-envelope"></i>
                 </label>
-                <div class="header_profile_box header_profile_box--2">
+                <div class="header_profile_box header_profile_box--2" onclick="event.preventDefault()">
                     This Text Should Appear 2
                 </div>
             </a>
@@ -44,7 +45,7 @@
                 <label for="user">
                     <i class="fas fa-user"></i>
                 </label>
-                <div class="header_profile_box header_profile_box--3">
+                <div class="header_profile_box header_profile_box--3" onclick="event.preventDefault()">
                     <div class="profile_box-user">
                         <div class="profile_box-image">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Chris_Evans_-_Captain_America_2_press_conference_headshot.jpg"
@@ -54,19 +55,19 @@
                         <%= currentUser.first_name + ' ' + currentUser.last_name %>
                         <%= currentUser.email_id %>
 
-                        <div class="profile_box-manage">
+                        <div class="profile_box-manage" onclick="window.location.href = '/user/'">
                             Manage your Workforce Account
                         </div>
                     </div>
-                    <div class="profile_box-sign_out">
+                    <div class="profile_box-sign_out" onclick="window.location.href = '/worker/logout'">
                         Sign out from Workforce
                     </div>
                     <div class="profile_box-about">
                         <!-- <a href="/about"> About </a> -->
-                        <label for="about"> About </label>
+                        <label for="about" onclick="window.location.href = '/about/'"> About </label>
                         <span> . </span>
                         <!-- <a href="/contactUs"> Contact Us </a> -->
-                        <label for="contact_us"> Contact Us </label>
+                        <label for="contact_us" onclick="window.location.href = '/contactUs'"> Contact Us </label>
                     </div>
                 </div>
             </a>

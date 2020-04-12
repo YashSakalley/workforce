@@ -1,22 +1,27 @@
 <% include ./partials/workerHeader %>
 
 <div class="worker_page" style="display: flex;">
-    <% include ./partials/navigation %>
+    <% include ./partials/workerNavigation %>
     <main class="worker_main">
         <h1>
             These are jobs currently available for you. <br>
             <span> Choose any one of them and click next. </span>
         </h1>
+        <% if(requests.length == 0) { %>
+        <h1 class="" style="font-size: 2rem; margin-top: 2rem; text-transform: uppercase;">
+            No jobs available
+        </h1>
+        <% } %>
+        <% if (requests != 0) { %>
         <form class="worker_jobs" action="/worker/selectJob" method="POST">
             <input type="text" name="address" id="job_address" required>
             <% requests.forEach(function(request){ %>
             <input type="radio" name="jobId" id="<%= request.id %>" value="<%= JSON.stringify(request) %>">
             <label for="<%= request.id %>" class="worker_job" onclick="select('<%= request.address %>')">
-                <%= request.first_name %>
-                <%= request.last_name %>
-                <%= request.phone_number %>
-                <%= request.address %>
-                <%= request.job %>
+                <b>JOB -</b> <%= request.job %> <br>
+                <b>NAME -</b> <%= request.first_name %> <%= request.last_name %> <br>
+                <i class="fas fa-phone"></i> <%= request.phone_number %> <br>
+                <i class="fas fa-map-marker-alt"></i> <%= request.address.split('!').join(', ') %>
             </label>
             <% }) %>
             <input type="submit" id="submit">
@@ -24,6 +29,7 @@
         <div class="form_finish">
             <label for="submit" class="btn-default">NEXT</label>
         </div>
+        <% } %>
     </main>
 </div>
 <% include ./partials/footer %>

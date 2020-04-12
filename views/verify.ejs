@@ -14,6 +14,7 @@
 <script src="https://kit.fontawesome.com/dbaab9daf5.js" crossorigin="anonymous"></script>
 
 <body>
+    <% include ./partials/notifications %>
     <form class="form_otp" action="/verify/OTP" method="POST">
         <div class="header" style="justify-content: start;">
             <a href="/"><i class="fas fa-arrow-left"></i></a>
@@ -26,9 +27,6 @@
                 <span style="color: var(--color-primary-dark);"> <%= phone %> </span>
             </span>
             <br>
-            <% if (msg) { %>
-            <span style="color: red;"> <%= msg %> </span>
-            <% } %>
             <input type="text" name="phone" value="<%= phone %>" readonly>
             <div class="otp_input">
                 <input type="text" name="otp1" maxlength="1" required autofocus id="otp1">

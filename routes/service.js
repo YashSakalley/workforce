@@ -116,7 +116,7 @@ router.post('/finish', authenticate.isLoggedIn, function (req, res) {
         }
         else {
             console.log('Request already created');
-            req.flash('error', 'Request already created. Please select a new Service or try selecting any other service');
+            req.flash('error', 'Request already created. Please select a new Service or try after this service is completed');
             res.redirect('/service/start');
         }
     });

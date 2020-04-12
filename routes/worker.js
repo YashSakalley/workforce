@@ -4,10 +4,12 @@ var express = require('express'),
     bcrypt = require('bcryptjs'),
     authenticate = require('./authenticate');
 
+// HOME
 router.get('/', function (req, res) {
     res.render('workerLanding');
 });
 
+// Login - POST
 router.post('/login',
     passport.authenticate('local-worker',
         {
@@ -19,12 +21,13 @@ router.post('/login',
 
     });
 
-// register 
+// Register - GET
 router.get('/register', function (req, res) {
     phone = req.flash('phone');
     res.render('workerRegister', { phone: phone });
 });
 
+// Register - POST
 router.post('/register', function (req, res) {
     var con = req.app.get('con'); // MySQL Connection Object
 
@@ -82,6 +85,13 @@ router.post('/register', function (req, res) {
     }
 });
 
+//logout
+router.get('/logout', function (req, res) {
+    req.logout();
+    res.redirect('/worker');
+});
+
+// Select Job - GET
 router.get('/selectJob', authenticate.isLoggedIn, function (req, res) {
     var con = req.app.get('con'); // MySQL Connection Object
 
@@ -92,13 +102,15 @@ router.get('/selectJob', authenticate.isLoggedIn, function (req, res) {
     con.query(q, function (err, requests, fields) {
         if (err) throw err;
         if (requests.length == 0) {
-            var empty = [];
-            res.render('worker', { empty: requests });
+            var requests = [];
+            res.render('worker', { requests: requests });
+            return;
         }
         res.render('worker', { requests: requests });
     });
 });
 
+// Select Job - POST
 router.post('/selectJob', function (req, res) {
     var con = req.app.get('con'); // MySQL Connection Object
 
@@ -114,14 +126,45 @@ router.post('/selectJob', function (req, res) {
         address: address
     }
     console.log('address', address);
-    q1 = 'INSERT INTO requests SET ?';
-    con.query(q1, newRequest, function (err, records, fields) {
+    q = 'SELECT * FROM requests WHERE worker_id = ?'
+    con.query(q, worker_id, function (err, records, fields) {
+        if (records.length == 0) {
+            q1 = 'INSERT INTO requests SET ?';
+            con.query(q1, newRequest, function (err, records, fields) {
+                if (err) throw err;
+                q2 = 'UPDATE temp_requests SET current_status = ? WHERE id = ? ';
+                con.query(q2, ['approved', request.id], function (err, records, fields) {
+                    if (err) throw err;
+                    res.send('done');
+                });
+            });
+        } else {
+            req.flash('error', 'You already have a job assigned to you. New jobs can be taken only after finishing previous work.');
+            res.redirect('/worker/selectJob');
+        }
+    });
+
+});
+
+// Current Jobs - GET
+router.get('/currentJobs', authenticate.isLoggedIn, function (req, res) {
+    var con = req.app.get('con'); // MySQL Connection Object
+    q = 'SELECT * FROM requests WHERE worker_id = ? and current_status = "ongoing"';
+    con.query(q, req.user.id, function (err, jobs, fields) {
         if (err) throw err;
-        q2 = 'UPDATE temp_requests SET current_status = ? WHERE id = ? ';
-        con.query(q2, ['approved', request.id], function (err, records, fields) {
-            if (err) throw err;
-            res.send('done');
-        });
+        console.log(jobs);
+        res.render('currentJobs', { jobs: jobs });
+    });
+});
+
+// Past Jobs - GET
+router.get('/pastJobs', authenticate.isLoggedIn, function (req, res) {
+    var con = req.app.get('con'); // MySQL Connection Object
+    q = 'SELECT * FROM requests WHERE worker_id = ? and current_status = "completed"';
+    con.query(q, req.user.id, function (err, jobs, fields) {
+        if (err) throw err;
+        console.log(jobs);
+        res.render('pastJobs', { jobs: jobs });
     });
 });
 

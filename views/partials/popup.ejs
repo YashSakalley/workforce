@@ -50,7 +50,8 @@
             <div class="popup_header">SIGNUP</div>
             <div class="popup_form">
                 <form action="/verify" method="POST">
-                    <input type="text" placeholder="Enter Phone Number" name="phone" required>
+                    <input type="text" placeholder="Enter Phone Number" name="phone" minlength="10" maxlength="10"
+                        required>
                     <input type="text" name="role" value="user" style="display: none;">
                     <input class="btn-default" type="submit" value="Send OTP">
                 </form>
