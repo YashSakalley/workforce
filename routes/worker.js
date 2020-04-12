@@ -60,7 +60,6 @@ router.post('/register', function (req, res) {
         profile_photo: req.body.profile_photo,
         password: req.body.password
     }
-    // const hashedPassword = bcrypt.hash(req.body.password, 10); --Remove
 
     if (repassword != newWorker.password) {
         req.flash('error', 'Password and re-entered password must be same');
@@ -73,7 +72,12 @@ router.post('/register', function (req, res) {
                 newWorker.password = hash;
                 query = 'INSERT INTO workers SET ?';
                 con.query(query, newWorker, function (err, records, fields) {
-                    if (err) throw err;
+                    if (err) {
+                        req.flash('phone', newUser.phone_number);
+                        req.flash('error', 'Email-id already in use');
+                        res.redirect('/worker/register');
+                        return;
+                    };
                     req.flash('success', 'Welcome to workforce ' + newWorker.first_name + ' ' + newWorker.last_name);
                     passport.authenticate('local-worker')(req, res, function () {
                         req.flash('success', 'Welcome to Workforce' + newWorker.email_id);
