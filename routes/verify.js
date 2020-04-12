@@ -16,32 +16,61 @@ router.post('/', function (req, res) {
     var phone = req.body.phone;
     var role = req.body.role;
     var con = req.app.get('con') // MySQL Connection Object
-    q = 'SELECT * FROM users WHERE phone_number = ?';
-    con.query(q, phone, function (err, users, fields) {
-        if (users.length != 0) {
-            req.flash('error', 'User with the given phone number already exists');
-            res.redirect('back');
-            return;
-        } else {
-            console.log('/verify post', role);
-            client
-                .verify
-                .services(config.serviceID)
-                .verifications
-                .create({
-                    to: '+91' + phone,
-                    channel: "sms"
-                })
-                .then((data) => {
-                    console.log('OTP sent to ' + phone);
-                })
-                .catch((err) => {
-                    console.log(err);
-                    console.log('Error occured');
-                });
-            res.redirect('/verify/' + phone + '/' + role);
-        }
-    });
+    if (role == "user") {
+        q = 'SELECT * FROM users WHERE phone_number = ?';
+        con.query(q, phone, function (err, users, fields) {
+            if (users.length != 0) {
+                req.flash('error', 'User with the given phone number already exists');
+                res.redirect('back');
+                return;
+            } else {
+                console.log('/verify post', role);
+                client
+                    .verify
+                    .services(config.serviceID)
+                    .verifications
+                    .create({
+                        to: '+91' + phone,
+                        channel: "sms"
+                    })
+                    .then((data) => {
+                        console.log('OTP sent to ' + phone);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        console.log('Error occured');
+                    });
+                res.redirect('/verify/' + phone + '/' + role);
+            }
+        });
+    } else {
+        q = 'SELECT * FROM workers WHERE phone_number = ?';
+        con.query(q, phone, function (err, users, fields) {
+            if (users.length != 0) {
+                req.flash('error', 'Worker with the given phone number already exists');
+                res.redirect('back');
+                return;
+            } else {
+                console.log('/verify post', role);
+                client
+                    .verify
+                    .services(config.serviceID)
+                    .verifications
+                    .create({
+                        to: '+91' + phone,
+                        channel: "sms"
+                    })
+                    .then((data) => {
+                        console.log('OTP sent to ' + phone);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        console.log('Error occured');
+                    });
+                res.redirect('/verify/' + phone + '/' + role);
+            }
+        });
+    }
 });
 
 // Verify OTP
