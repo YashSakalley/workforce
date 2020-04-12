@@ -29,7 +29,7 @@ var workerRouter = require('./routes/worker');
 var testRouter = require('./routes/test');
 
 const app = express(),
-    PORT = 5000;
+    PORT = process.env.PORT || 5000;
 
 //App Setup
 app.set('views', path.join(__dirname + '/views'));
