@@ -73,8 +73,8 @@ router.post('/register', function (req, res) {
                 query = 'INSERT INTO workers SET ?';
                 con.query(query, newWorker, function (err, records, fields) {
                     if (err) {
-                        req.flash('phone', newUser.phone_number);
-                        req.flash('error', 'Email-id already in use');
+                        req.flash('phone', newWorker.phone_number);
+                        req.flash('error', 'Email-id or phone number already in use');
                         res.redirect('/worker/register');
                         return;
                     };
