@@ -1,0 +1,23 @@
+{
+    "sqltools.connections": [
+        {
+            "connectionTimeout": 60,
+            "database": "workforce",
+            "dialect": "MySQL",
+            "name": "Workforce MySQL",
+            "password": "Mangotree@123",
+            "port": 3306,
+            "server": "localhost",
+            "username": "root"
+        },
+        {
+            "database": "sql12332989",
+            "dialect": "MySQL",
+            "name": "Online",
+            "password": "N9UgDC16BG",
+            "port": 3306,
+            "server": "sql12.freemysqlhosting.net",
+            "username": "sql12332989"
+        }
+    ]
+}
