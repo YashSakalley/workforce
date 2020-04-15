@@ -1,0 +1,49 @@
+.completedOrder_main {
+  border: 0.2rem solid rgb(180, 180, 180);
+  border-radius: 0.4rem;
+  box-shadow: 0.1rem 0.1rem 0.5rem 0.3rem rgb(180, 180, 180);
+  padding: 2rem;
+  font-size: 1.6rem;
+  margin: 2rem auto;
+  width: 60rem;
+  max-width: 95%;
+}
+
+.completedOrder_main .status {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0rem;
+}
+
+.completedOrder_main h2 {
+  font-size: 3rem;
+  letter-spacing: 0.5rem;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.completedOrder_main .service_detail,
+.completedOrder_main .worker_detail {
+  margin: 1rem;
+}
+
+.completedOrder_main hr {
+  width: 100%;
+}
+
+.completedOrder_main .status_ongoing {
+  border: 0.2rem solid rgba(228, 192, 17, 0.83);
+  width: 4rem;
+  height: 4rem;
+  border-radius: 100%;
+  margin: 1rem;
+
+  transform-origin: center;
+  animation: ongoing 1.5s infinite;
+}
+
+.completedOrder_main .job_options {
+  display: flex;
+  justify-content: center;
+  margin-top: 5rem;
+}

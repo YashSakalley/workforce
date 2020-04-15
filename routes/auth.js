@@ -85,7 +85,6 @@ router.post('/register', function (req, res) {
                     };
                     req.flash('success', 'Welcome to workforce ' + newUser.first_name + ' ' + newUser.last_name);
                     passport.authenticate('local-user')(req, res, function () {
-                        req.flash('success', 'Welcome to Workforce' + newUser.email_id);
                         res.redirect('/service/start');
                     });
                 });

@@ -153,11 +153,19 @@ router.post('/selectJob', function (req, res) {
 // Current Jobs - GET
 router.get('/currentJobs', authenticate.isLoggedIn, function (req, res) {
     var con = req.app.get('con'); // MySQL Connection Object
-    q = 'SELECT * FROM requests WHERE worker_id = ? and current_status = "ongoing"';
+    q = 'SELECT ' +
+        'requests.job as job, ' +
+        'requests.address as address, ' +
+        'requests.created_at as created_at, ' +
+        'requests.id as id, ' +
+        'users.first_name as first_name, ' +
+        'users.last_name as last_name, ' +
+        'users.phone_number as phone_number ' +
+        'FROM requests JOIN users ON users.id = requests.user_id WHERE worker_id = ? and current_status = "ongoing"';
     con.query(q, req.user.id, function (err, jobs, fields) {
         if (err) throw err;
-        console.log(jobs);
-        res.render('currentJobs', { jobs: jobs });
+        var job = jobs[0];
+        res.render('currentJobs', { job: job });
     });
 });
 
@@ -170,6 +178,18 @@ router.get('/pastJobs', authenticate.isLoggedIn, function (req, res) {
         console.log(jobs);
         res.render('pastJobs', { jobs: jobs });
     });
+});
+
+// Abort Current job
+router.get('/abortJob/:id', function (req, res) {
+    res.render();
+});
+
+// Finish Current Job
+router.post('/finishJob/:id', function (req, res) {
+    var cost_breakdown = req.body;
+    //res.render('/service/finishJob', { cost_breakdown: cost_breakdown });
+    res.send(cost_breakdown);
 });
 
 module.exports = router;

@@ -32,9 +32,11 @@ CREATE TABLE reviews (
   reviews_text VARCHAR(255),
   worker_id INT,
   user_id INT,
+  request_id INT,
   created_at TIMESTAMP DEFAULT NOW(),
   FOREIGN KEY(user_id) REFERENCES users(id),
-  FOREIGN KEY(worker_id) REFERENCES workers(id)
+  FOREIGN KEY(worker_id) REFERENCES workers(id),
+  FOREIGN KEY(request_id) REFERENCES requests(id)
 );
 CREATE TABLE requests (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -43,6 +45,7 @@ CREATE TABLE requests (
   worker_id INT NOT NULL,
   current_status VARCHAR(20),
   job VARCHAR(50),
+  cost float,
   FOREIGN KEY(user_id) REFERENCES users(id),
   FOREIGN KEY(worker_id) REFERENCES workers(id)
 );

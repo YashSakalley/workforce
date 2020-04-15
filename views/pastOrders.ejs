@@ -1,5 +1,16 @@
 <% include ./partials/header %>
+<style>
+    #noOrders {
+        padding: 1rem;
+        font-size: 2.0rem;
+        margin: 1rem;
+    }
 
+    #noOrders a {
+        color: var(--color-primary-dark);
+        text-decoration: underline;
+    }
+</style>
 <div class="pastOrders_page" style="display: flex;">
     <% include ./partials/navigation %>
     <main class="pastOrders_main">
@@ -9,6 +20,9 @@
             <span>Click on an order for full details.</span>
         </h1>
         <div class="orders">
+            <% if (orders.length == 0) { %>
+            <h2 id="noOrders">NO ORDERS YET. <a href="/service/start">CREATE ONE?</a></h2>
+            <% } %>
             <% orders.forEach(function(order) { %>
             <a href="/service/completed/<%= order.id %>">
                 <div class="completed_order 

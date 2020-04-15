@@ -116,7 +116,7 @@ router.post('/finish', authenticate.isLoggedIn, function (req, res) {
         }
         else {
             console.log('Request already created');
-            req.flash('error', 'Request already created. Please select a new Service or try after this service is completed');
+            req.flash('error', 'Request already created for this service. Please select a different service or try after the current service is completed');
             res.redirect('/service/start');
         }
     });
@@ -125,10 +125,19 @@ router.post('/finish', authenticate.isLoggedIn, function (req, res) {
 router.get('/completed/:id', authenticate.isLoggedIn, function (req, res) {
     var con = req.app.get('con'); // MySQL Connection Object
     var id = req.params.id;
-    var user = req.user.id;
+    var worker = req.user.id;
 
-    q = 'SELECT * FROM requests WHERE id = ? and user_id = ?'
-    con.query(q, [id, user], function (err, records, fields) {
+    q = 'SELECT requests.job as job, ' +
+        'requests.created_at as created_at, ' +
+        'requests.address as address, ' +
+        'workers.first_name as first_name, ' +
+        'workers.last_name as last_name, ' +
+        'workers.phone_number as phone_number, ' +
+        'workers.average_rating as average_rating ' +
+        'FROM requests JOIN workers ' +
+        'ON requests.worker_id = workers.id WHERE requests.id = ? ';
+
+    con.query(q, [id, worker], function (err, records, fields) {
         if ((!records) || (records.length == 0)) {
             res.send('Invalid Request');
             return;

@@ -2,10 +2,59 @@
 
 <div class="completedOrder_page" style="display: flex;">
     <% include ./partials/navigation %>
-    <main>
-        <%= JSON.stringify(order) %>
-        <%= order %>
+    <main class="completedOrder_main">
+        <div class="status">
+            <div class="status_text">
+                YOUR WORK IS: <br>
+                <b> CURRENTLY ONGOING </b>
+            </div>
+            <div class="status_icon">
+                <div class="status_ongoing"></div>
+            </div>
+        </div>
+        <hr>
+        <h2>ORDER DETAILS</h2>
+        <div class="service_details">
+            <div class="service_detail">
+                <b>SERVICE - </b> <%= order.job %>
+            </div>
+            <div class="service_detail">
+                <b>REQUEST MADE ON - </b> <span id="date"></span> <span id="time"></span>
+            </div>
+            <div class="service_detail">
+                <b>ADDRESS - </b> <span id="address"></span>
+            </div>
+        </div>
+        <hr>
+        <h2>WORKER DETAILS</h2>
+        <div class="worker_details">
+            <div class="worker_detail">
+                <b>NAME - </b> <%= order.first_name %> <%= order.last_name %>
+            </div>
+            <div class="worker_detail">
+                <b>PHONE NO. - </b> <%= order.phone_number %>
+            </div>
+            <div class="worker_detail">
+                <b>AVERAGE RATING - </b> <%= order.average_rating %> / 5
+            </div>
+        </div>
     </main>
 </div>
+
+<script>
+    var str = '<%= order.created_at %>';
+    str = str.split(' ');
+    var date = str[2] + ' ' + str[1] + ' ' + str[3];
+    var time = str[4].split(':')[0] + ':' + str[4].split(':')[1];
+    var str1 = '<%= order.address %>';
+    console.log(str1)
+    str1 = str1.split('!');
+    address = str1[0] + ' ' + str1[1];
+
+    document.getElementById('date').innerHTML = date;
+    document.getElementById('time').innerHTML = time;
+    document.getElementById('address').innerHTML = address;
+
+</script>
 
 <% include ./partials/footer %>

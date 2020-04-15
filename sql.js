@@ -46,8 +46,10 @@ q3 = "CREATE TABLE reviews ( " +
     "worker_id INT, " +
     "user_id INT, " +
     "created_at TIMESTAMP DEFAULT NOW(), " +
+    "request_id INT, " +
     "FOREIGN KEY(user_id) REFERENCES users(id), " +
     "FOREIGN KEY(worker_id) REFERENCES workers(id) " +
+    "FOREIGN KEY(request_id) REFERENCES requests(id)" +
     ");"
 
 q4 = "CREATE TABLE requests ( " +
@@ -58,6 +60,7 @@ q4 = "CREATE TABLE requests ( " +
     "current_status VARCHAR(20), " +
     "job VARCHAR(50), " +
     "address VARCHAR(255), " +
+    "cost float, " +
     "FOREIGN KEY(user_id) REFERENCES users(id), " +
     "FOREIGN KEY(worker_id) REFERENCES workers(id) " +
     ");";
@@ -72,7 +75,7 @@ q5 = "CREATE TABLE temp_requests ( " +
     "FOREIGN KEY(user_id) REFERENCES users(id) " +
     ");"
 
-con.query(q5, function (err, records, fields) {
+con.query(q4, function (err, records, fields) {
     if (err) throw err;
     console.log(records);
 });

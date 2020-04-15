@@ -1,4 +1,6 @@
-.btn-default {
+.btn-default,
+.btn-success,
+.btn-error {
   background-color: var(--color-primary);
   color: white;
   border: 0.3rem solid var(--color-primary);
@@ -12,7 +14,8 @@
   transition: all 0.2s ease;
 }
 
-.btn-default-outline {
+.btn-default-outline,
+.btn-error-outline {
   background-color: transparent;
   border: 0.3rem solid var(--color-primary);
   padding: 1rem 2.5rem;
@@ -39,11 +42,21 @@
 .btn-success {
   border: 0.3rem solid var(--color-success);
   background-color: var(--color-success);
-  color: white;
+  color: white !important;
 }
 
 .btn-error {
   border: 0.3rem solid var(--color-error);
   background-color: var(--color-error);
-  color: white;
+  color: white !important;
+}
+
+.btn-error-outline {
+  border: 0.3rem solid var(--color-error);
+  color: var(--color-error) !important;
+}
+
+.btn-error:hover,
+.btn-error-outline:hover {
+  border-color: var(--color-error-dark);
 }

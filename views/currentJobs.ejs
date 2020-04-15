@@ -1,14 +1,130 @@
 <% include ./partials/workerHeader %>
 
-<div class="currentJobs_page" style="display: flex;">
+<div class="completedOrder_page" style="display: flex;">
     <% include ./partials/workerNavigation %>
-    <main class="currentJobs_main">
-        <h1>
-            These are the jobs you approved
-            <span>Click for full details</span>
-        </h1>
-        <div>
-            <%= jobs %>
+    <main class="completedOrder_main">
+        <div class="status">
+            <div class="status_text">
+                YOUR WORK IS: <br>
+                <b> CURRENTLY ONGOING </b>
+            </div>
+            <div class="status_icon">
+                <div class="status_ongoing"></div>
+            </div>
+        </div>
+        <hr>
+        <h2>JOB DETAILS</h2>
+        <div class="service_details">
+            <div class="service_detail">
+                <b>SERVICE - </b> <%= job.job %>
+            </div>
+            <div class="service_detail">
+                <b>REQUEST MADE ON - </b> <span id="date"></span> <span id="time"></span>
+            </div>
+            <div class="service_detail">
+                <b>ADDRESS - </b> <span id="address"></span>
+            </div>
+        </div>
+        <hr>
+        <h2>USER DETAILS</h2>
+        <div class="worker_details">
+            <div class="worker_detail">
+                <b>NAME - </b> <%= job.first_name %> <%= job.last_name %>
+            </div>
+            <div class="worker_detail">
+                <b>PHONE NO. - </b> <%= job.phone_number %>
+            </div>
+        </div>
+        <div class="job_options">
+            <a href="/worker/abortJob/<%= job.id %>" class="btn-error-outline">CANCEL JOB</a>
+            <a href="#costPopUp" class="btn-success">FINISH JOB</a>
         </div>
     </main>
 </div>
+
+<div class="popup" id="costPopUp">
+    <form action="/worker/finishJob/<%= job.id %>" method="POST">
+        <div class="popup_content" style="flex-direction: column;">
+            <div class="cost_field">
+                <div class="desc">Description</div>
+                <div class="amount">Amount(Rs.)</div>
+            </div>
+
+            <div class="cost_field">
+                <div class="desc">
+                    <input type="text" name="desc" value="Initial Amount*" style="border: none;" readonly>
+                </div>
+                <div class="amount">
+                    <input type="text" min="0" name="amount" value="100" style="border: none;" readonly>
+                </div>
+            </div>
+
+            <div id="additionalFields"></div>
+
+            <div class="cost_field">
+                <div class="desc">
+                    <input type="text" name="desc" value="Grand Total" style="border: none;" readonly>
+                </div>
+                <div class="amount">
+                    <input type="text" min="0" name="amount" value="100" style="border: none;" readonly id="total">
+                </div>
+            </div>
+
+            <div class="cost_field">
+                <div class="desc" style="border: none; border-top: 0.1rem solid black;"></div>
+                <div class="amount" style="border: none; border-top: 0.1rem solid black;">
+                    <a class="btn-default-outline" onclick="event.preventDefault(); addField()">Add Field</a>
+                    <input type="submit" class="btn-default" value="DONE">
+                </div>
+            </div>
+
+            <div class="popup_close">
+                <a href="#">
+                    <i class="fas fa-times"></i>
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<script>
+    var str = '<%= job.created_at %>';
+    str = str.split(' ');
+    var date = str[2] + ' ' + str[1] + ' ' + str[3];
+    var time = str[4].split(':')[0] + ':' + str[4].split(':')[1];
+    var str1 = '<%= job.address %>';
+    console.log(str1)
+    str1 = str1.split('!');
+    address = str1[0] + ' ' + str1[1];
+
+    document.getElementById('date').innerHTML = date;
+    document.getElementById('time').innerHTML = time;
+    document.getElementById('address').innerHTML = address;
+
+    var additionalFields = document.getElementById('additionalFields');
+    function addField() {
+        var add = '<div class="cost_field">' +
+            '<div class="desc"> <input type="text" placeholder="Description" name="desc"> </div>' +
+            '<div class="amount"> <input type="text" min="0" placeholder="Amount" name="amount" class="amount"> </div>' +
+            '</div>';
+        additionalFields.innerHTML += add;
+    }
+
+    var amount = document.getElementsByClassName('amount');
+    var total = document.getElementById('total');
+
+    console.log(amount);
+
+    amount.forEach(amt => {
+        amt.addEventListener('change', function (event) {
+            console.log('cchange');
+        });
+    });
+
+</script>
+
+<% include ./partials/footer %>
+
+<%= JSON.stringify(job) %>

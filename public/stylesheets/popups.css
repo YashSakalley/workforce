@@ -124,3 +124,25 @@
   height: 10rem;
   font-size: 2rem;
 }
+
+/* Cost decription Popup */
+.popup .cost_field {
+  display: flex;
+  flex-direction: row;
+  font-size: 2rem;
+}
+
+.popup .cost_field > * {
+  padding: 1rem 2rem;
+  width: 50%;
+}
+
+.popup_content .desc {
+  border-right: 0.2rem solid black;
+}
+
+.popup .cost_field input[type="text"] {
+  border: 0.04rem solid grey;
+  border-radius: 0.4rem;
+  font: inherit;
+}

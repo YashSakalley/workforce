@@ -63,3 +63,21 @@
     transform: translateY(0);
   }
 }
+
+@keyframes ongoing {
+  0% {
+    border: 1.5rem solid rgba(228, 192, 17, 0.83);
+    transform: scale(0.1);
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 1;
+  }
+
+  100% {
+    border: 0.2rem solid rgba(228, 192, 17, 0.83);
+    transform: scale(1);
+    opacity: 0;
+  }
+}
