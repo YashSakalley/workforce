@@ -80,7 +80,6 @@ router.post('/register', function (req, res) {
                     };
                     req.flash('success', 'Welcome to workforce ' + newWorker.first_name + ' ' + newWorker.last_name);
                     passport.authenticate('local-worker')(req, res, function () {
-                        req.flash('success', 'Welcome to Workforce' + newWorker.email_id);
                         res.redirect('/worker/selectJob');
                     });
                 });

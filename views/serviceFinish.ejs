@@ -86,8 +86,9 @@
             <%= worker.average_rating %> / 5.0
             <span>AVG. RATING</span><br>
             <span> TOTAL REVIEWS: <%= worker.total_reviews %> </span>
-        </div>
-        <div class="worker_detail">
+            <div class="worker_detail" style="display: flex; color: white;">
+                <a href="/user/pastOrders" class="btn-default">Click here to track your request</a>
+            </div>
         </div>
     </div>
     <% } %>
