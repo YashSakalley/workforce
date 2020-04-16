@@ -139,7 +139,7 @@ router.post('/selectJob', authenticate.isLoggedIn, function (req, res) {
                 q2 = 'UPDATE temp_requests SET current_status = ? WHERE id = ? ';
                 con.query(q2, ['approved', request.id], function (err, records, fields) {
                     if (err) throw err;
-                    res.send('done');
+                    res.redirect('/worker/currentJobs');
                 });
             });
         } else {
@@ -166,7 +166,7 @@ router.get('/currentJobs', authenticate.isLoggedIn, function (req, res) {
         'FROM requests JOIN users ON users.id = requests.user_id WHERE worker_id = ? and current_status = "ongoing"';
     con.query(q, req.user.id, function (err, jobs, fields) {
         if (err) throw err;
-        res.render('currentJobs', { job: jobs[0] });
+        res.render('currentJobs', { job: jobs[0], review: '' });
     });
 });
 
@@ -198,7 +198,15 @@ router.get('/pastJob/:id', authenticate.isLoggedIn, function (req, res) {
     con.query(q, [req.user.id, req.params.id], function (err, jobs, fields) {
         if (err) throw err;
         var job = jobs[0];
-        res.render('currentJobs', { job: job });
+        q2 = 'SELECT * FROM reviews WHERE request_id = ?';
+        con.query(q2, req.params.id, function (err, records, fields) {
+            if (err) throw err;
+            if (records.length == 0) {
+                res.render('currentJobs', { job: job, review: '' });
+            } else {
+                res.render('currentJobs', { job: job, review: records[0] });
+            }
+        });
     });
 });
 

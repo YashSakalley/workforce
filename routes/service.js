@@ -133,6 +133,8 @@ router.get('/completed/:id', authenticate.isLoggedIn, function (req, res) {
         'requests.address as address, ' +
         'requests.current_status as current_status, ' +
         'requests.cost as cost, ' +
+        'requests.id as id, ' +
+        'workers.id as worker_id, ' +
         'workers.first_name as first_name, ' +
         'workers.last_name as last_name, ' +
         'workers.phone_number as phone_number, ' +
@@ -147,9 +149,53 @@ router.get('/completed/:id', authenticate.isLoggedIn, function (req, res) {
         }
         else {
             var order = records[0];
-            res.render('completedOrder', { order: order });
+            q1 = 'SELECT * FROM reviews WHERE request_id = ?';
+            con.query(q1, id, function (err, records, fields) {
+                if (records.length == 0) {
+                    res.render('completedOrder', { order: order, review: '' });
+                }
+                else {
+                    var review = records[0];
+                    res.render('completedOrder', { order: order, review: review });
+                }
+            });
         }
     });
+});
+
+router.post('/review', authenticate.isLoggedIn, function (req, res) {
+    console.log(req.body);
+    var con = req.app.get('con'); // MySQL Connection Object
+    var newReview = {
+        rating: req.body.rating,
+        reviews_text: req.body.review,
+        worker_id: req.body.worker_id,
+        user_id: req.user.id,
+        request_id: req.body.request_id
+    }
+    q = 'INSERT INTO reviews SET ?';
+    con.query(q, newReview, function (err, records, fields) {
+        if (err) throw err;
+        console.log('Review added');
+        res.redirect('/service/completed/' + newReview.request_id);
+    });
+
+    // Updating the values for worker
+    q2 = 'SELECT average_rating, total_reviews FROM workers WHERE id = ?';
+    con.query(q2, newReview.worker_id, function (err, records, fields) {
+        var worker = records[0];
+        var rating = parseFloat(worker.average_rating);
+        var total = parseFloat(worker.total_reviews);
+        var newRating = parseFloat(newReview.rating);
+
+        var new_average = ((rating * total) + newRating) / (total + 1);
+        total += 1;
+
+        q3 = 'UPDATE workers SET average_rating = ?, total_reviews = ? WHERE id = ?';
+        con.query(q3, [new_average, total, newReview.worker_id], function (err, records, fields) {
+            if (err) throw err;
+        });
+    })
 });
 
 module.exports = router;

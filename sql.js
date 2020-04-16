@@ -34,9 +34,8 @@ q2 = "CREATE TABLE workers ( " +
     "shop_address VARCHAR(255) NOT NULL, " +
     "profile_photo VARCHAR(255), " +
     "created_at TIMESTAMP DEFAULT NOW(), " +
-    "average_rating FLOAT, " +
-    "total_reviews INT, " +
-    "job VARCHAR(50) UNIQUE " +
+    "average_rating FLOAT DEFAULT 0, " +
+    "total_reviews INT DEFAULT 0 " +
     ");";
 
 q3 = "CREATE TABLE reviews ( " +
@@ -48,7 +47,7 @@ q3 = "CREATE TABLE reviews ( " +
     "created_at TIMESTAMP DEFAULT NOW(), " +
     "request_id INT, " +
     "FOREIGN KEY(user_id) REFERENCES users(id), " +
-    "FOREIGN KEY(worker_id) REFERENCES workers(id) " +
+    "FOREIGN KEY(worker_id) REFERENCES workers(id), " +
     "FOREIGN KEY(request_id) REFERENCES requests(id)" +
     ");"
 
@@ -60,7 +59,7 @@ q4 = "CREATE TABLE requests ( " +
     "current_status VARCHAR(20), " +
     "job VARCHAR(50), " +
     "address VARCHAR(255), " +
-    "cost float, " +
+    "cost float DEFAULT 0, " +
     "FOREIGN KEY(user_id) REFERENCES users(id), " +
     "FOREIGN KEY(worker_id) REFERENCES workers(id) " +
     ");";
@@ -75,9 +74,25 @@ q5 = "CREATE TABLE temp_requests ( " +
     "FOREIGN KEY(user_id) REFERENCES users(id) " +
     ");"
 
-con.query(q4, function (err, records, fields) {
+/*
+con.query(q1, function (err, records, fields) {
     if (err) throw err;
-    console.log(records);
+    console.log('Added users table');
 });
-
+con.query(q2, function (err, records, fields) {
+    if (err) throw err;
+    console.log('Added workers table');
+});*/
+con.query(q3, function (err, records, fields) {
+    if (err) throw err;
+    console.log('Added reviews table');
+});
+/*con.query(q4, function (err, records, fields) {
+    if (err) throw err;
+    console.log('Added requests table');
+});*/
+/*con.query(q5, function (err, records, fields) {
+    if (err) throw err;
+    console.log('Added temp_requests table');
+});*/
 con.end();

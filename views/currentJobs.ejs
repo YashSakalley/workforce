@@ -81,6 +81,21 @@
             <a href="#costPopUp" class="btn-success">FINISH JOB</a>
         </div>
         <% } %>
+        <% if(review != '') { %>
+        <hr>
+        <h2>USER REVIEW</h2>
+        <div style="padding: 1rem;">
+            <div class="review">
+                <h3>Review:</h3>
+                <%= review.reviews_text %>
+            </div>
+            <br>
+            <div class="rating">
+                <h3>Rating</h3>
+                <%= review.rating %>
+            </div>
+        </div>
+        <% } %>
         <% } %>
     </main>
 </div>
@@ -146,9 +161,6 @@
     </div>
 </div>
 
-
-
-
 <script>
     var str = '<%= job.created_at %>';
     str = str.split(' ');
@@ -186,5 +198,3 @@
 
 <% } %>
 <% include ./partials/footer %>
-
-<%= JSON.stringify(job) %>

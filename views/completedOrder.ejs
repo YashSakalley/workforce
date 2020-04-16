@@ -75,18 +75,38 @@
             </div>
         </div>
         <% if (order.current_status == 'finished') { %>
+        <hr>
+        <h2>YOUR REVIEW</h2>
         <div class="order_reviews">
-            <form id="review_form">
-                <input type="text" name="review">
-                <input type="text" name="rating">
-                <button class="btn-default">SUBMIT</button>
+            <% if(review == '') { %>
+            <form id="review_form" action="/service/review" method="POST">
+                <label for="review">Your Message</label> <br>
+                <input type="text" name="review" id="review" required> <br>
+                <label for="rating">Rating(out of 5)</label><br>
+                <input type="text" name="rating" id="rating" required min="0" max="5">
+                <input type="text" name="request_id" value="<%= order.id %>" style="display: none;">
+                <input type="text" name="worker_id" value="<%= order.worker_id %>" style="display: none;">
+                <button type="submit" class="btn-default" id="reviewButton">SUBMIT</button>
             </form>
+            <% } %>
+            <div class="" style="padding: 1rem;">
+                <% if(review != '') { %>
+                <div class="review">
+                    <h3>Review:</h3>
+                    <%= review.reviews_text %>
+                </div>
+                <br>
+                <div class="rating">
+                    <h3>Rating</h3>
+                    <%= review.rating %>
+                </div>
+                <% } %>
+            </div>
         </div>
         <% } %>
 </div>
 </main>
 </div>
-
 <script>
     var str = '<%= order.created_at %>';
     str = str.split(' ');
