@@ -3,45 +3,90 @@
 <div class="completedOrder_page" style="display: flex;">
     <% include ./partials/workerNavigation %>
     <main class="completedOrder_main">
+        <% if (!job) { %>
+        NO JOB CURRENTLY
+        <% } %>
+        <% if (job) { %>
         <div class="status">
             <div class="status_text">
                 YOUR WORK IS: <br>
+                <% if(job.current_status == 'ongoing') { %>
                 <b> CURRENTLY ONGOING </b>
+                <% } %>
+                <% if(job.current_status == 'finished') { %>
+                <b> COMPLETED </b>
+                <% } %>
+                <% if(job.current_status == 'failed') { %>
+                <b> FAILED </b>
+                <% } %>
             </div>
             <div class="status_icon">
+                <% if(job.current_status == 'ongoing') { %>
                 <div class="status_ongoing"></div>
+                <% } %>
+                <% if(job.current_status == 'finished') { %>
+                <div class="status_completed">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <% } %>
+                <% if(job.current_status == 'failed') { %>
+                <div class="status_failed">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <% } %>
             </div>
         </div>
         <hr>
         <h2>JOB DETAILS</h2>
         <div class="service_details">
             <div class="service_detail">
-                <b>SERVICE - </b> <%= job.job %>
+                <b>SERVICE : </b> <%= job.job %>
             </div>
             <div class="service_detail">
-                <b>REQUEST MADE ON - </b> <span id="date"></span> <span id="time"></span>
+                <% if(job.current_status == 'ongoing') { %>
+                <b>REQUEST MADE ON : </b>
+                <% } %>
+                <% if(job.current_status == 'finished') { %>
+                <b>REQUEST COMPLETED ON : </b>
+                <% } %>
+                <% if(job.current_status == 'failed') { %>
+                <b>REQUEST FAILED ON : </b>
+                <% } %>
+                <div>
+                    <span id="date"></span> <span id="time"></span>
+                </div>
             </div>
             <div class="service_detail">
-                <b>ADDRESS - </b> <span id="address"></span>
+                <b>ADDRESS : </b> <span id="address"></span>
             </div>
+            <% if (job.current_status == 'finished') { %>
+            <div class="service_detail">
+                <b>TOTAL COST : </b> <span id="cost">Rs. <%= job.cost %></span>
+            </div>
+            <% } %>
         </div>
         <hr>
         <h2>USER DETAILS</h2>
         <div class="worker_details">
             <div class="worker_detail">
-                <b>NAME - </b> <%= job.first_name %> <%= job.last_name %>
+                <b>NAME : </b> <%= job.first_name %> <%= job.last_name %>
             </div>
             <div class="worker_detail">
-                <b>PHONE NO. - </b> <%= job.phone_number %>
+                <b>PHONE NO. : </b> <%= job.phone_number %>
             </div>
         </div>
+        <% if (job.current_status == 'ongoing') { %>
         <div class="job_options">
-            <a href="/worker/abortJob/<%= job.id %>" class="btn-error-outline">CANCEL JOB</a>
+            <a href="#confirmCancelPopUp" class="btn-error-outline">CANCEL JOB</a>
             <a href="#costPopUp" class="btn-success">FINISH JOB</a>
         </div>
+        <% } %>
+        <% } %>
     </main>
 </div>
 
+<% if (job) { %>
+<!-- Add Cost Fields PopUP -->
 <div class="popup" id="costPopUp">
     <form action="/worker/finishJob/<%= job.id %>" method="POST">
         <div class="popup_content" style="flex-direction: column;">
@@ -74,7 +119,7 @@
                 <div class="desc" style="border: none; border-top: 0.1rem solid black;"></div>
                 <div class="amount" style="border: none; border-top: 0.1rem solid black;">
                     <a class="btn-default-outline" onclick="event.preventDefault(); addField()">Add Field</a>
-                    <input type="submit" class="btn-default" value="DONE">
+                    <input type="submit" class="btn-default" value="DONE" onchange="">
                 </div>
             </div>
 
@@ -86,6 +131,21 @@
         </div>
     </form>
 </div>
+
+<!-- Confirm Cancel Job PopUP -->
+<div class="popup" id="confirmCancelPopUp">
+    <div class="popup_content" style="flex-direction: column; padding: 2rem; width: auto; height: 20rem;">
+        <div class="cancel_content">
+            Are you sure you want to cancel order?. <br>
+            This action is non reversable and you won't get paid for this job. <br>
+        </div>
+        <div class="cancel_buttons">
+            <a href="#" class="btn-default-outline">NO, DON'T CANCEL</a>
+            <a href="/worker/abortJob/<%= job.id %>" class="btn-error-outline">ABORT JOB</a>
+        </div>
+    </div>
+</div>
+
 
 
 
@@ -105,26 +165,26 @@
 
     var additionalFields = document.getElementById('additionalFields');
     function addField() {
-        var add = '<div class="cost_field">' +
-            '<div class="desc"> <input type="text" placeholder="Description" name="desc"> </div>' +
-            '<div class="amount"> <input type="text" min="0" placeholder="Amount" name="amount" class="amount"> </div>' +
-            '</div>';
-        additionalFields.innerHTML += add;
+        console.log(additionalFields);
+        var descField = '<div class="desc"> \n <input type="text" placeholder="Description" name="desc"> \n </div> \n';
+        var amountField = '<div class="amount"> \n <input type="text" min=0 placeholder="Amount" name="amount" class="amountField" onchange="addToTotal(this)"> \n </div> \n';
+        var add = '<div class="cost_field">' + descField + amountField + '</div>';
+        additionalFields.insertAdjacentHTML('beforeend', add);
     }
 
-    var amount = document.getElementsByClassName('amount');
+    var amount = document.getElementsByClassName('amountField');
     var total = document.getElementById('total');
 
-    console.log(amount);
-
-    amount.forEach(amt => {
-        amt.addEventListener('change', function (event) {
-            console.log('cchange');
-        });
-    });
+    function addToTotal(obj) {
+        console.log(obj.value);
+        var oldValue = parseFloat(total.value);
+        var newValue = oldValue + parseFloat(obj.value);
+        total.value = newValue;
+    }
 
 </script>
 
+<% } %>
 <% include ./partials/footer %>
 
 <%= JSON.stringify(job) %>

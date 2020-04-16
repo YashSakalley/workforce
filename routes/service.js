@@ -127,9 +127,12 @@ router.get('/completed/:id', authenticate.isLoggedIn, function (req, res) {
     var id = req.params.id;
     var worker = req.user.id;
 
-    q = 'SELECT requests.job as job, ' +
+    q = 'SELECT ' +
+        'requests.job as job, ' +
         'requests.created_at as created_at, ' +
         'requests.address as address, ' +
+        'requests.current_status as current_status, ' +
+        'requests.cost as cost, ' +
         'workers.first_name as first_name, ' +
         'workers.last_name as last_name, ' +
         'workers.phone_number as phone_number, ' +

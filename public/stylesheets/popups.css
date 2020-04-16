@@ -146,3 +146,12 @@
   border-radius: 0.4rem;
   font: inherit;
 }
+
+.popup .cancel_buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.popup .cancel_content {
+  font-size: 2rem;
+}

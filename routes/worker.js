@@ -115,7 +115,7 @@ router.get('/selectJob', authenticate.isLoggedIn, function (req, res) {
 });
 
 // Select Job - POST
-router.post('/selectJob', function (req, res) {
+router.post('/selectJob', authenticate.isLoggedIn, function (req, res) {
     var con = req.app.get('con'); // MySQL Connection Object
 
     var request = JSON.parse(req.body.jobId);
@@ -130,7 +130,7 @@ router.post('/selectJob', function (req, res) {
         address: address
     }
     console.log('address', address);
-    q = 'SELECT * FROM requests WHERE worker_id = ?'
+    q = 'SELECT * FROM requests WHERE worker_id = ? and current_status = "ongoing"';
     con.query(q, worker_id, function (err, records, fields) {
         if (records.length == 0) {
             q1 = 'INSERT INTO requests SET ?';
@@ -158,21 +158,22 @@ router.get('/currentJobs', authenticate.isLoggedIn, function (req, res) {
         'requests.address as address, ' +
         'requests.created_at as created_at, ' +
         'requests.id as id, ' +
+        'requests.current_status as current_status, ' +
+        'requests.cost as cost, ' +
         'users.first_name as first_name, ' +
         'users.last_name as last_name, ' +
         'users.phone_number as phone_number ' +
         'FROM requests JOIN users ON users.id = requests.user_id WHERE worker_id = ? and current_status = "ongoing"';
     con.query(q, req.user.id, function (err, jobs, fields) {
         if (err) throw err;
-        var job = jobs[0];
-        res.render('currentJobs', { job: job });
+        res.render('currentJobs', { job: jobs[0] });
     });
 });
 
 // Past Jobs - GET
 router.get('/pastJobs', authenticate.isLoggedIn, function (req, res) {
     var con = req.app.get('con'); // MySQL Connection Object
-    q = 'SELECT * FROM requests WHERE worker_id = ? and current_status = "completed"';
+    q = 'SELECT * FROM requests WHERE worker_id = ? and current_status = "finished" or current_status = "failed"';
     con.query(q, req.user.id, function (err, jobs, fields) {
         if (err) throw err;
         console.log(jobs);
@@ -180,16 +181,66 @@ router.get('/pastJobs', authenticate.isLoggedIn, function (req, res) {
     });
 });
 
-// Abort Current job
-router.get('/abortJob/:id', function (req, res) {
-    res.render();
+// PAST JOB - GET
+router.get('/pastJob/:id', authenticate.isLoggedIn, function (req, res) {
+    var con = req.app.get('con'); // MySQL Connection Object
+    q = 'SELECT ' +
+        'requests.job as job, ' +
+        'requests.created_at as created_at, ' +
+        'requests.address as address, ' +
+        'requests.current_status as current_status, ' +
+        'requests.cost as cost, ' +
+        'requests.id as id, ' +
+        'users.first_name as first_name, ' +
+        'users.last_name as last_name, ' +
+        'users.phone_number as phone_number ' +
+        'FROM requests JOIN users ON users.id = requests.user_id WHERE worker_id = ? and requests.id = ?';
+    con.query(q, [req.user.id, req.params.id], function (err, jobs, fields) {
+        if (err) throw err;
+        var job = jobs[0];
+        res.render('currentJobs', { job: job });
+    });
+});
+
+// Abort Current  
+router.get('/abortJob/:id', authenticate.isLoggedIn, function (req, res) {
+    var con = req.app.get('con'); // MySQL Connection Object
+    q = 'UPDATE requests SET current_status = "failed" where id = ?';
+    con.query(q, req.params.id, function (err, records, fields) {
+        res.redirect('/worker/pastJob/' + req.params.id);
+    });
+    q1 = 'SELECT * FROM requests WHERE id = ?';
+    con.query(q1, req.params.id, function (err, records, fields) {
+        var request = records[0];
+        q3 = 'DELETE FROM temp_requests WHERE user_id = ? and job = ? and current_status = "approved"';
+        con.query(q3, [request.user_id, request.job], function (err, records, fields) {
+            if (err) throw err;
+            console.log('Deleting', records);
+        });
+    });
 });
 
 // Finish Current Job
-router.post('/finishJob/:id', function (req, res) {
-    var cost_breakdown = req.body;
-    //res.render('/service/finishJob', { cost_breakdown: cost_breakdown });
-    res.send(cost_breakdown);
+router.post('/finishJob/:id', authenticate.isLoggedIn, function (req, res) {
+    var con = req.app.get('con'); // MySQL Connection Object
+    var desc = req.body.desc;
+    var amount = req.body.amount;
+    console.log(desc, amount);
+    var cost = amount[amount.length - 1];
+    q = 'UPDATE requests SET current_status = "finished", cost = ? where id = ?';
+    con.query(q, [cost, req.params.id], function (err, records, fields) {
+        if (err) throw err;
+        q1 = 'SELECT * FROM requests WHERE id = ?';
+        con.query(q1, req.params.id, function (err, records, fields) {
+            var request = records[0];
+            q3 = 'DELETE FROM temp_requests WHERE user_id = ? and job = ? and current_status = "approved"';
+            con.query(q3, [request.user_id, request.job], function (err, records, fields) {
+                if (err) throw err;
+                console.log('Deleting', records);
+            });
+        });
+        res.redirect('/worker/pastJob/' + req.params.id);
+    });
 });
 
 module.exports = router;

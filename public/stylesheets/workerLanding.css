@@ -17,6 +17,18 @@
   color: white;
   font-size: 2.5rem;
   margin: 1rem;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.worker_box h1::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  width: 5rem;
+  height: 1rem;
 }
 
 .worker_box .box--login,

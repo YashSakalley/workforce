@@ -7,6 +7,8 @@
   --color-primary-dark: #206b5b;
   --color-success: rgb(60, 156, 73);
   --color-error: rgb(228, 88, 88);
+  --color-error-dark: rgb(233, 58, 58);
+  --color-success-dark: rgb(31, 126, 43);
 
   --text-color: white;
 }

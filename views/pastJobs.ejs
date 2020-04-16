@@ -1,14 +1,54 @@
 <% include ./partials/workerHeader %>
+<style>
+    #noOrders {
+        padding: 1rem;
+        font-size: 2.0rem;
+        margin: 1rem;
+    }
 
-<div class="pastJobs_page" style="display: flex;">
+    #noOrders a {
+        color: var(--color-primary-dark);
+        text-decoration: underline;
+    }
+</style>
+<div class="pastOrders_page" style="display: flex;">
     <% include ./partials/workerNavigation %>
-    <main class="pastJobs_main">
+    <main class="pastOrders_main">
         <h1>
-            These are the jobs you completed
-            <span>Click for full details</span>
+            These are your previously completed jobs.
+            <br>
+            <span>Click on an order for full details.</span>
         </h1>
-        <div>
-            <%= jobs %>
+        <div class="orders">
+            <% if (jobs.length == 0) { %>
+            <h2 id="noOrders">NO PREVIOUS JOBS YET. <a href="/worker/selectJob">FIND ONE?</a></h2>
+            <% } %>
+            <% jobs.forEach(function(job) { %>
+            <a href="/worker/pastJob/<%= job.id %>">
+                <div class="completed_order 
+                <% if (job.current_status == 'ongoing') { %>
+                    order_ongoing
+                <% } %>
+                <% if (job.current_status == 'finished') { %>
+                    order_completed
+                <% } %>
+                <% if (job.current_status == 'failed') { %>
+                    order_failed
+                <% } %>">
+                    <div class="order_current_status">
+                        <%= job.current_status %>
+                    </div>
+                    <div class="order_job">
+                        <%= job.job %>
+                    </div>
+                    <div class="order_created_at">
+                        <%= job.created_at %>
+                    </div>
+                </div>
+            </a>
+            <% }) %>
         </div>
     </main>
 </div>
+
+<% include ./partials/footer %>

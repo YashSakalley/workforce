@@ -29,7 +29,7 @@
                 <% if (order.current_status == 'ongoing') { %>
                     order_ongoing
                 <% } %>
-                <% if (order.current_status == 'completed') { %>
+                <% if (order.current_status == 'finished') { %>
                     order_completed
                 <% } %>
                 <% if (order.current_status == 'failed') { %>
@@ -44,9 +44,9 @@
                     <div class="order_created_at">
                         <%= order.created_at %>
                     </div>
-                    <% }) %>
                 </div>
             </a>
+            <% }) %>
         </div>
     </main>
 </div>

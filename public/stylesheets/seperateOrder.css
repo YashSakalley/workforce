@@ -25,6 +25,8 @@
 .completedOrder_main .service_detail,
 .completedOrder_main .worker_detail {
   margin: 1rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 .completedOrder_main hr {
@@ -40,6 +42,18 @@
 
   transform-origin: center;
   animation: ongoing 1.5s infinite;
+}
+
+.completedOrder_main .status_completed {
+  padding: 1rem;
+  color: var(--color-success);
+  font-size: 3rem;
+}
+
+.completedOrder_main .status_failed {
+  padding: 1rem;
+  color: var(--color-error);
+  font-size: 3rem;
 }
 
 .completedOrder_main .job_options {
