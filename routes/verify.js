@@ -35,12 +35,15 @@ router.post('/', function (req, res) {
                     })
                     .then((data) => {
                         console.log('OTP sent to ' + phone);
+                        res.redirect('/verify/' + phone + '/' + role);
                     })
                     .catch((err) => {
                         console.log(err);
                         console.log('Error occured');
+                        req.flash('error', 'Invalid phone number or number not supported');
+                        res.redirect('back');
+                        return;
                     });
-                res.redirect('/verify/' + phone + '/' + role);
             }
         });
     } else {
@@ -51,7 +54,7 @@ router.post('/', function (req, res) {
                 res.redirect('back');
                 return;
             } else {
-                console.log('/verify post', role);
+                console.log('/verify posted', role);
                 client
                     .verify
                     .services(config.serviceID)
@@ -62,12 +65,15 @@ router.post('/', function (req, res) {
                     })
                     .then((data) => {
                         console.log('OTP sent to ' + phone);
+                        res.redirect('/verify/' + phone + '/' + role);
                     })
                     .catch((err) => {
                         console.log(err);
+                        req.flash('error', 'Invalid phone number or number not supported');
                         console.log('Error occured');
+                        res.redirect('back');
+                        return;
                     });
-                res.redirect('/verify/' + phone + '/' + role);
             }
         });
     }
