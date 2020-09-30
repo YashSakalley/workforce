@@ -1,8 +1,8 @@
-# workforce
+# WORKFORCE
 
 Minor Project for 6th Semester
 
-![alt text](https://cdn.dribbble.com/users/571755/screenshots/3864009/local-coin-hero_copie_copie.jpg)
+![alt text](https://getfreepoint.com/wp-content/uploads/2018/06/Industry-4.0-2017_09_28-19_17_30-UTC.jpg)
 
 ## Setup for project
 
