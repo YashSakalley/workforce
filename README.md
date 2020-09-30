@@ -2,6 +2,8 @@
 
 Minor Project for 6th Semester
 
+![alt text](https://cdn.dribbble.com/users/571755/screenshots/3864009/local-coin-hero_copie_copie.jpg)
+
 ## Setup for project
 
 If you have git cli installed, run: <br>
